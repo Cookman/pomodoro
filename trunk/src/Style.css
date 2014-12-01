@@ -1,0 +1,20 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+.timerBorder{
+	 border-color:#000000;
+	 border-style: solid;
+	 border-thickness: 1;
+}
+.timeEditStyle{
+	font-Size:14;
+	fontWeight:bold;
+	fontFamily:'Times new roman';
+	
+}
+.timeStyle
+{
+	font-Size:24;
+	fontWeight:bold;
+	fontFamily:'Times new roman';
+}

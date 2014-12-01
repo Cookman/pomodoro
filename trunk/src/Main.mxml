@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+                       xmlns:view="views.*"
+                       width="215" height="85"
+                       showStatusBar="false" alwaysInFront="true" title="Pomodoro"
+                       titleIcon="@Embed('assets/pomodoro16.png')"
+                       creationComplete="windowedapplication1_creationCompleteHandler(event)">
+
+    <fx:Style source="Style.css"/>
+
+    <fx:Script><![CDATA[
+        import models.LocalStorage;
+        import models.MindTimerModel;
+
+        import mx.events.FlexEvent;
+
+        import vo.ButtonLabels;
+        import vo.SettingsVO;
+
+        private var minimized:Boolean = false;
+
+        [Bindable]
+        [Embed(source="/assets/bell.png")]
+        private var IconBell:Class;
+        [Bindable]
+        private var model:MindTimerModel = MindTimerModel.getInstance();
+
+        protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
+
+            var settings:SettingsVO = LocalStorage.loadSettings();
+            if (settings) {
+                model.playSound = settings.playSound;
+                model.showPomodoroStatistic = settings.showPomodoroStatistic;
+                trayIt.setPomodoroStatistic();
+            }
+            model.trayIt = trayIt;
+            model.buttonLabel = ButtonLabels.LABEL_START;
+            nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, minimizeListener);
+        }
+
+        private function minimizeListener(e:NativeWindowDisplayStateEvent):void {
+            if (!minimized) {
+                model.trayIt.hide();
+                minimized = true;
+            }
+            else {
+                minimized = false;
+            }
+        }
+
+        private function playSoundClickHandler(e:Event):void {
+            var settings:SettingsVO = LocalStorage.loadSettings();
+            if (settings) {
+                settings.playSound = model.playSound;
+                LocalStorage.saveSettings(settings);
+            }
+        }
+        ]]></fx:Script>
+    <view:TrayManager id="trayIt"/>
+
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" gap="5" top="-5">
+        <s:Group>
+            <s:VGroup visible="{model.timerStatus}" horizontalAlign="center" verticalAlign="middle" paddingTop="3">
+                <s:HGroup horizontalAlign="center" verticalAlign="middle">
+                    <view:TimeSelectBar width="100%" height="100%" buttonWidth="35" dataProvider="{model.timePresets}"/>
+                    <s:ToggleButton id="playSoundButton" width="18" height="100%"
+                                    click="playSoundClickHandler(event)"
+                                    change="{model.playSound=!model.playSound}" icon="{IconBell}"
+                                    selected="{model.playSound}"/>
+                </s:HGroup>
+                <view:TimerEditor/>
+            </s:VGroup>
+            <s:HGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center"
+                      visible="{!model.timerStatus}">
+                <view:TimerView/>
+            </s:HGroup>
+        </s:Group>
+        <view:Toolbar/>
+    </s:VGroup>
+</s:WindowedApplication>

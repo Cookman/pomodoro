@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          gap="0">
+    <fx:Script>
+		<![CDATA[
+        import models.MindTimerModel;
+        import models.SoundModel;
+
+        import vo.ButtonLabels;
+        import vo.TimeVO;
+        import vo.TimerStatuses;
+
+        [Bindable]
+        private var model:MindTimerModel = MindTimerModel.getInstance();
+
+        protected function startBtn_clickHandler(event:MouseEvent):void {
+            if (model.time.notNull) {
+                model.timerStatus = TimerStatuses.STARTED;
+                model.timerInstance.setTimer(model.time);
+                model.buttonLabel = ButtonLabels.LABEL_HIDE;
+                model.timerInstance.startTimer();
+                model.trayIt.iconNumber = 1;
+                model.trayIt.hide();
+            }
+        }
+
+        protected function stopBtn_clickHandler(event:MouseEvent):void {
+            model.buttonLabel = ButtonLabels.LABEL_START;
+            model.timerStatus = TimerStatuses.STOPED;
+            model.timerInstance.stopTimer();
+            model.trayIt.iconNumber = 0;
+        }
+
+        protected function resetBtn_clickHandler(event:MouseEvent):void {
+            model.time = new TimeVO();
+            model.timerStatus = TimerStatuses.STOPED;
+            model.timerInstance.stopTimer();
+            model.buttonLabel = ButtonLabels.LABEL_START;
+            model.soundModel.stopSound();
+           // model.playSound = false;
+
+        }
+        ]]>
+	</fx:Script>
+
+
+    <s:HGroup horizontalAlign="center" verticalAlign="middle">
+        <s:Button id="startBtn" width="55" height="100%" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
+                  click="startBtn_clickHandler(event)"/>
+        <s:Button id="stopBtn" width="55" height="100%" label="Stop" enabled="{startBtn.enabled}"
+                  click="stopBtn_clickHandler(event)"/>
+        <s:Button id="resetBtn" width="55" height="100%" label="Reset" click="resetBtn_clickHandler(event)"/>
+    </s:HGroup>
+
+</s:VGroup>
