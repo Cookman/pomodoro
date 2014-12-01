@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+         xmlns:s="library://ns.adobe.com/flex/spark">
+    <fx:Declarations>
+        <s:DropShadowFilter id="shading" distance="2" angle="45" blurX="1" blurY="1" strength="5" alpha="0.2"/>
+    </fx:Declarations>
+
+    <fx:Script>
+		<![CDATA[
+        import models.MindTimerModel;
+
+        import vo.ButtonLabels;
+
+        [Bindable]
+        private var tiWidth:int = 30;
+        [Bindable]
+        private var model:MindTimerModel = MindTimerModel.getInstance();
+        ]]>
+	</fx:Script>
+    <s:HGroup filters="{shading}">
+        <s:Label text="{model.time.hoursString}" styleName="timeStyle"/>
+        <s:Label text="{ButtonLabels.LABEL_DELIMITER}" styleName="timeStyle"/>
+        <s:Label text="{model.time.minutesString}" styleName="timeStyle"/>
+        <s:Label text="{ButtonLabels.LABEL_DELIMITER}" styleName="timeStyle"/>
+        <s:Label text="{model.time.secondsString}" styleName="timeStyle"/>
+    </s:HGroup>
+</s:Group>

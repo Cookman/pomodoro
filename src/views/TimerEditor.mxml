@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:views="views.*" width="100%">
+    <fx:Script>
+		<![CDATA[
+        import models.MindTimerModel;
+
+        import vo.TimeVO;
+
+        [Bindable]
+        private var model:MindTimerModel = MindTimerModel.getInstance();
+
+        protected function textInputChangedHandler(event:Event):void {
+            var time:TimeVO = new TimeVO();
+            time.hours = int(hoursLTI.textInputText);
+            time.minutes = int(minutesLTI.textInputText);
+            time.seconds = int(secondsLTI.textInputText);
+            model.time = time;
+        }
+        ]]>
+	</fx:Script>
+
+    <s:HGroup>
+        <views:LabeledTextInput id="hoursLTI" labelText="H:" textInputText="{model.time.hours}"
+                                editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
+        <views:LabeledTextInput id="minutesLTI" labelText="M:" textInputText="{model.time.minutes}"
+                                editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
+        <views:LabeledTextInput id="secondsLTI" labelText="S:" textInputText="{model.time.seconds}"
+                                editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
+    </s:HGroup>
+</s:VGroup>
