@@ -26,7 +26,6 @@
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
         protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
-
             var settings:SettingsVO = LocalStorage.loadSettings();
             if (settings) {
                 model.playSound = settings.playSound;

@@ -5,41 +5,20 @@
     <fx:Script>
 		<![CDATA[
         import models.MindTimerModel;
-        import models.SoundModel;
-
-        import vo.ButtonLabels;
-        import vo.TimeVO;
-        import vo.TimerStatuses;
 
         [Bindable]
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
         protected function startBtn_clickHandler(event:MouseEvent):void {
-            if (model.time.notNull) {
-                model.timerStatus = TimerStatuses.STARTED;
-                model.timerInstance.setTimer(model.time);
-                model.buttonLabel = ButtonLabels.LABEL_HIDE;
-                model.timerInstance.startTimer();
-                model.trayIt.iconNumber = 1;
-                model.trayIt.hide();
-            }
+            model.startTimer();
         }
 
         protected function stopBtn_clickHandler(event:MouseEvent):void {
-            model.buttonLabel = ButtonLabels.LABEL_START;
-            model.timerStatus = TimerStatuses.STOPED;
-            model.timerInstance.stopTimer();
-            model.trayIt.iconNumber = 0;
+            model.stopTimer();
         }
 
         protected function resetBtn_clickHandler(event:MouseEvent):void {
-            model.time = new TimeVO();
-            model.timerStatus = TimerStatuses.STOPED;
-            model.timerInstance.stopTimer();
-            model.buttonLabel = ButtonLabels.LABEL_START;
-            model.soundModel.stopSound();
-           // model.playSound = false;
-
+            model.resetTimer();
         }
         ]]>
 	</fx:Script>

@@ -1,12 +1,16 @@
 package views {
 
-
 import flash.desktop.*;
 import flash.display.*;
 import flash.events.*;
 
 import models.LocalStorage;
 import models.MindTimerModel;
+
+import mx.events.FlexEvent;
+import mx.events.ToolTipEvent;
+
+import mx.managers.ToolTipManager;
 
 import spark.components.Group;
 
@@ -62,7 +66,7 @@ public class TrayManager extends Group {
         _icon.draw(new clockClass);
         NativeApplication.nativeApplication.icon.bitmaps = [_icon];
         trayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
-        trayIcon.tooltip = "Timer";
+        ToolTipManager.toolTipClass=TimerTooltip;
         trayIcon.menu = create_menu();
         trayIcon.addEventListener(MouseEvent.CLICK, undock);
         this.invalidateDisplayList();
@@ -95,7 +99,7 @@ public class TrayManager extends Group {
         var stopItem:NativeMenuItem = new NativeMenuItem("Stop");
         var exitItem:NativeMenuItem = new NativeMenuItem("Exit");
         gatherStatisticItem = new NativeMenuItem("Count poms");
-
+        setPomodoroStatistic();
         statisticItem = new NativeMenuItem(LocalStorage.getTodaysCount().toString() + " pomodoro(s)");
         statisticItem.enabled = false;
 

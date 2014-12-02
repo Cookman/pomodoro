@@ -30,6 +30,7 @@ public class MindTimerModel {
     public var timerInstance:TimerUtil = new TimerUtil();
     public var trayIt:TrayManager;
     public var buttonLabel:String;
+    public var lastSelectedTime:String;
 
     public var timePresets:ArrayCollection = new ArrayCollection([1, 5, 10, 25]);
 
@@ -54,6 +55,33 @@ public class MindTimerModel {
     private function initialize():void {
         timerInstance.addEventListener(TimerTickEvent.TIMER_COMPLETE, timerCompleteHandler);
         timerInstance.addEventListener(TimerTickEvent.TIMER_TICK, timerTickHandler);
+    }
+
+    public function startTimer():void{
+        if (time.notNull) {
+            timerStatus = TimerStatuses.STARTED;
+            lastSelectedTime=time.toString();
+            timerInstance.setTimer(time);
+            buttonLabel = ButtonLabels.LABEL_HIDE;
+            timerInstance.startTimer();
+            trayIt.iconNumber = 1;
+            trayIt.hide();
+        }
+    }
+
+    public function stopTimer():void{
+        buttonLabel = ButtonLabels.LABEL_START;
+        timerStatus = TimerStatuses.STOPED;
+        timerInstance.stopTimer();
+        trayIt.iconNumber = 0;
+    }
+
+    public function resetTimer():void{
+        time = new TimeVO();
+        timerStatus = TimerStatuses.STOPED;
+        timerInstance.stopTimer();
+        buttonLabel = ButtonLabels.LABEL_START;
+        soundModel.stopSound();
     }
 
     private function timerCompleteHandler(e:TimerTickEvent):void {
@@ -99,7 +127,7 @@ public class MindTimerModel {
     }
 
     public function savePomodoro():void{
-        LocalStorage.savePomodoro("25");
+        LocalStorage.savePomodoro(lastSelectedTime);
         trayIt.updatePomodorosCount();
     }
 
