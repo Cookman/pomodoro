@@ -7,11 +7,6 @@ import flash.events.*;
 import models.LocalStorage;
 import models.MindTimerModel;
 
-import mx.events.FlexEvent;
-import mx.events.ToolTipEvent;
-
-import mx.managers.ToolTipManager;
-
 import spark.components.Group;
 
 import vo.SettingsVO;
@@ -34,6 +29,8 @@ public class TrayManager extends Group {
     private var _icon:BitmapData;
     private var trayIcon:SystemTrayIcon;
     private var _iconNumber:int = 0;
+    private var statisticItem:NativeMenuItem;
+    private var gatherStatisticItem:NativeMenuItem;
 
     public function TrayManager() {
         super();
@@ -66,7 +63,6 @@ public class TrayManager extends Group {
         _icon.draw(new clockClass);
         NativeApplication.nativeApplication.icon.bitmaps = [_icon];
         trayIcon = NativeApplication.nativeApplication.icon as SystemTrayIcon;
-        ToolTipManager.toolTipClass=TimerTooltip;
         trayIcon.menu = create_menu();
         trayIcon.addEventListener(MouseEvent.CLICK, undock);
         this.invalidateDisplayList();
@@ -80,31 +76,30 @@ public class TrayManager extends Group {
         }
     }
 
-    private var statisticItem:NativeMenuItem;
-    private var gatherStatisticItem:NativeMenuItem;
-
     public function updatePomodorosCount():void {
         statisticItem.label = LocalStorage.getTodaysCount().toString() + " pomodoro(s)";
     }
 
-    public function setPomodoroStatistic():void {
-        gatherStatisticItem.checked = model.showPomodoroStatistic;
+    public function setPomodoroStatistic(value:Boolean):void {
+        gatherStatisticItem.checked = value;
     }
 
     private function create_menu():NativeMenu {
         var iconMenu:NativeMenu = new NativeMenu();
 
+        var settingsItem:NativeMenuItem = new NativeMenuItem("Settings");
         var showItem:NativeMenuItem = new NativeMenuItem("Show");
         var startItem:NativeMenuItem = new NativeMenuItem("Start");
         var stopItem:NativeMenuItem = new NativeMenuItem("Stop");
         var exitItem:NativeMenuItem = new NativeMenuItem("Exit");
         gatherStatisticItem = new NativeMenuItem("Count poms");
-        setPomodoroStatistic();
+       // setPomodoroStatistic();
         statisticItem = new NativeMenuItem(LocalStorage.getTodaysCount().toString() + " pomodoro(s)");
         statisticItem.enabled = false;
 
         iconMenu.addItem(statisticItem);
         iconMenu.addItem(gatherStatisticItem);
+        iconMenu.addItem(settingsItem);
         iconMenu.addItem(showItem);
         iconMenu.addItem(startItem);
         iconMenu.addItem(stopItem);
@@ -115,7 +110,14 @@ public class TrayManager extends Group {
         startItem.addEventListener(Event.SELECT, startTimer);
         stopItem.addEventListener(Event.SELECT, stopTimer);
         exitItem.addEventListener(Event.SELECT, exitApp);
+        settingsItem.addEventListener(Event.SELECT, showSettings)
         return iconMenu;
+    }
+
+    private function showSettings(event:Event):void {
+        var w:SettingsWindow = new SettingsWindow()
+        w.open();
+        hide();
     }
 
     private function startTimer(event:Event):void {
@@ -141,9 +143,9 @@ public class TrayManager extends Group {
     private function gatherStatisticHandler(e:Event):void {
         gatherStatisticItem.checked = !gatherStatisticItem.checked;
         model.showPomodoroStatistic = gatherStatisticItem.checked;
-        var settings:SettingsVO = LocalStorage.loadSettings() as SettingsVO;
+        var settings:SettingsVO = model.settings;
         if (settings) {
-            settings.showPomodoroStatistic = model.showPomodoroStatistic;
+            settings.showPomodoroStatistic = gatherStatisticItem.checked;
             LocalStorage.saveSettings(settings);
         }
     }

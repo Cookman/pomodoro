@@ -6,6 +6,9 @@ public class SettingsVO {
 
     public var playSound:Boolean;
     public var showPomodoroStatistic:Boolean;
+    public var pomodoroLength:int;
+    public var useFixedPomodoroLength:Boolean;
+
 
     public function SettingsVO(values:Object) {
         if (values.hasOwnProperty("playSound")) {
@@ -13,6 +16,12 @@ public class SettingsVO {
         }
         if (values.hasOwnProperty("showPomodoroStatistic")) {
             showPomodoroStatistic = values.showPomodoroStatistic;
+        }
+        if (values.hasOwnProperty("useFixedPomodoroLength")) {
+            useFixedPomodoroLength = values.useFixedPomodoroLength;
+        }
+        if (values.hasOwnProperty("pomodoroLength")) {
+            pomodoroLength = values.pomodoroLength;
         }
     }
 }

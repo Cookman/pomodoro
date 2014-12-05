@@ -3,7 +3,7 @@
   Created by Cookman on 29.11.2014.
 -->
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="50"
-               creationComplete="creationCompleted(event)" controlBarVisible="true" title="Pomodoro it?" skinClass="views.skins.AlertWindowSkin">
+               creationComplete="creationCompleted(event)" controlBarVisible="true" skinClass="views.skins.AlertWindowSkin">
     <fx:Script><![CDATA[
         import models.LocalStorage;
         import models.MindTimerModel;
@@ -22,10 +22,10 @@
             PopUpManager.removePopUp(this);
         }
         ]]></fx:Script>
-    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center">
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5" paddingRight="5">
         <s:HGroup>
-            <s:Button id="yesButton" label="YES" click="clickHandler(event)"/>
-            <s:Button label="NO" click="clickHandler(event)"/>
+            <s:Button id="yesButton" label="Pomodoro it" click="clickHandler(event)"/>
+            <s:Button label="No" click="clickHandler(event)"/>
         </s:HGroup>
         <s:Label verticalAlign="middle" textAlign="center" text="{LocalStorage.getTodaysCount() + ' pom(s); '+MindTimerModel.getInstance().lastSelectedTime}"/>
     </s:VGroup>
