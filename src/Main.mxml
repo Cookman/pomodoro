@@ -15,7 +15,6 @@
         import mx.events.FlexEvent;
 
         import vo.ButtonLabels;
-        import vo.SettingsVO;
 
         private var minimized:Boolean = false;
 
@@ -26,15 +25,10 @@
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
         protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
-            var settings:SettingsVO = LocalStorage.loadSettings();
-            if (settings) {
-                model.playSound = settings.playSound;
-                model.showPomodoroStatistic = settings.showPomodoroStatistic;
-                trayIt.setPomodoroStatistic();
-            }
             model.trayIt = trayIt;
             model.buttonLabel = ButtonLabels.LABEL_START;
             nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, minimizeListener);
+            model.loadSettings();
         }
 
         private function minimizeListener(e:NativeWindowDisplayStateEvent):void {
@@ -48,11 +42,9 @@
         }
 
         private function playSoundClickHandler(e:Event):void {
-            var settings:SettingsVO = LocalStorage.loadSettings();
-            if (settings) {
-                settings.playSound = model.playSound;
-                LocalStorage.saveSettings(settings);
-            }
+            model.settings.playSound = model.playSound;
+            LocalStorage.saveSettings(model.settings);
+
         }
         ]]></fx:Script>
     <view:TrayManager id="trayIt"/>
