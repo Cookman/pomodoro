@@ -4,10 +4,11 @@
 package vo {
 public class SettingsVO {
 
-    public var playSound:Boolean;
-    public var showPomodoroStatistic:Boolean;
-    public var pomodoroLength:int;
-    public var useFixedPomodoroLength:Boolean;
+    public var playSound:Boolean=false;
+    public var showPomodoroStatistic:Boolean=false;
+    public var pomodoroLength:int=25;
+    public var useFixedPomodoroLength:Boolean=false;
+    public var templates:Array=[1,5,10,25];
 
 
     public function SettingsVO(values:Object) {
@@ -22,6 +23,9 @@ public class SettingsVO {
         }
         if (values.hasOwnProperty("pomodoroLength")) {
             pomodoroLength = values.pomodoroLength;
+        }
+        if(values.hasOwnProperty("templates")){
+            templates=values.templates;
         }
     }
 }

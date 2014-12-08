@@ -4,7 +4,8 @@
 -->
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
           xmlns:mx="library://ns.adobe.com/flex/mx" resizable="false"
-          width="250" height="150" showStatusBar="false" isPopUp="true" alwaysInFront="true" title="Settings" maximizable="false"
+          width="250" height="150" showStatusBar="false" isPopUp="true" alwaysInFront="true" title="Settings"
+          maximizable="false"
           minimizable="false" type="{NativeWindowType.UTILITY}"
           creationComplete="creationCompleteHandler(event)">
     <fx:Script><![CDATA[
@@ -22,6 +23,10 @@
                 usePomLength.selected = settings.useFixedPomodoroLength;
                 countPoms.selected = settings.showPomodoroStatistic;
                 pomodoroLength.text = settings.pomodoroLength.toString();
+                template1.text = settings.templates[0];
+                template2.text = settings.templates[1];
+                template3.text = settings.templates[2];
+                template4.text = settings.templates[3];
             }
         }
 
@@ -30,6 +35,12 @@
                 settings.useFixedPomodoroLength = usePomLength.selected;
                 settings.pomodoroLength = parseInt(pomodoroLength.text);
                 settings.showPomodoroStatistic = countPoms.selected;
+                settings.templates[0] = template1.text;
+                settings.templates[1] = template2.text;
+                settings.templates[2] = template3.text;
+                settings.templates[3] = template4.text;
+
+                model.updateTimeTemplates();
                 LocalStorage.saveSettings(settings);
                 model.trayIt.show();
                 this.close();
@@ -42,7 +53,7 @@
         }
         ]]></fx:Script>
     <s:VGroup width="100%" height="100%">
-        <mx:TabNavigator width="100%" height="100%">
+        <mx:TabNavigator width="100%" height="100%" creationPolicy="all">
             <mx:VBox width="100%" height="100%" label="Poms">
                 <s:CheckBox id="countPoms" label="Count poms"></s:CheckBox>
                 <mx:HBox width="100%" height="100%">
@@ -50,6 +61,22 @@
                     <s:TextInput id="pomodoroLength" enabled="{usePomLength.selected}" text="25" width="40"
                                  restrict="0-9"/>
                 </mx:HBox>
+            </mx:VBox>
+            <mx:VBox width="100%" height="100%" label="TimeTemplates">
+                <s:VGroup>
+                    <s:HGroup verticalAlign="middle">
+                        <s:Label text="time 1"/>
+                        <s:TextInput id="template1" width="25" restrict="0-9"/>
+                        <s:Label text="time 2"/>
+                        <s:TextInput id="template2" width="25" restrict="0-9"/>
+                    </s:HGroup>
+                    <s:HGroup verticalAlign="middle">
+                        <s:Label text="time 3"/>
+                        <s:TextInput id="template3" width="25" restrict="0-9"/>
+                        <s:Label text="time 4"/>
+                        <s:TextInput id="template4" width="25" restrict="0-9"/>
+                    </s:HGroup>
+                </s:VGroup>
             </mx:VBox>
         </mx:TabNavigator>
         <s:HGroup>
