@@ -10,6 +10,7 @@ import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
 
 import views.AlertWindow;
+import views.TimeSelectBar;
 import views.TrayManager;
 
 import vo.ButtonLabels;
@@ -25,10 +26,12 @@ public class MindTimerModel {
     public var timerStatus:Boolean = true;
     public var timerInstance:TimerUtil = new TimerUtil();
     public var trayIt:TrayManager;
+    public var timeTemplateBar:TimeSelectBar;
     public var buttonLabel:String;
     public var lastSelectedTime:String;
     public var lastSelectedMinutes:String;
 
+    [Bindable]
     public var timePresets:ArrayCollection = new ArrayCollection([1, 5, 10, 25]);
 
     [Bindable]
@@ -62,6 +65,7 @@ public class MindTimerModel {
             playSound = settings.playSound;
             showPomodoroStatistic = settings.showPomodoroStatistic;
             trayIt.setPomodoroStatistic(settings.showPomodoroStatistic);
+            timeTemplateBar.dataProvider=settings.templates;
         }
     }
 
@@ -94,6 +98,10 @@ public class MindTimerModel {
         timerInstance.stopTimer();
         buttonLabel = ButtonLabels.LABEL_START;
         soundModel.stopSound();
+    }
+
+    public function updateTimeTemplates():void{
+        timeTemplateBar.dataProvider=settings.templates;
     }
 
     private function timerCompleteHandler(e:TimerTickEvent):void {
