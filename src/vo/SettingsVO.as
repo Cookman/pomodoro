@@ -9,7 +9,8 @@ public class SettingsVO {
     public var pomodoroLength:int=25;
     public var useFixedPomodoroLength:Boolean=false;
     public var templates:Array=[1,5,10,25];
-
+    public var useRecommends:Boolean=false;
+    public  var recommends:Array=[];
 
     public function SettingsVO(values:Object) {
         if (values.hasOwnProperty("playSound")) {
@@ -26,6 +27,12 @@ public class SettingsVO {
         }
         if(values.hasOwnProperty("templates")){
             templates=values.templates;
+        }
+        if(values.hasOwnProperty("useRecommends")){
+            useRecommends=values.useRecommends;
+        }
+        if(values.hasOwnProperty("recommends")){
+            recommends=values.recommends;
         }
     }
 }

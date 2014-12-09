@@ -56,9 +56,10 @@
         <s:Group>
             <s:VGroup visible="{model.timerStatus}" horizontalAlign="center" verticalAlign="middle" paddingTop="3">
                 <s:HGroup horizontalAlign="center" verticalAlign="middle">
-                    <view:TimeSelectBar id="timeTemplateBar" width="100%" height="100%" buttonWidth="35" />
+                    <view:TimeSelectBar id="timeTemplateBar" width="100%" height="100%" buttonWidth="35"   />
                     <s:ToggleButton id="playSoundButton" width="18" height="100%"
                                     click="playSoundClickHandler(event)"
+
                                     change="{model.playSound=!model.playSound}" icon="{IconBell}"
                                     selected="{model.playSound}"/>
                 </s:HGroup>

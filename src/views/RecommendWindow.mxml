@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!--
+  Created by Cookman on 29.11.2014.
+-->
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="55"
+               creationComplete="creationCompleted(event)" controlBarVisible="true"
+               skinClass="views.skins.AlertWindowSkin">
+    <fx:Script><![CDATA[
+        import models.LocalStorage;
+        import models.MindTimerModel;
+
+        import mx.managers.PopUpManager;
+
+        import vo.TimeVO;
+
+        private var model:MindTimerModel = MindTimerModel.getInstance();
+
+        private var count:int;
+        private var timeValue:int;
+
+        protected function creationCompleted(e:Event):void {
+            PopUpManager.centerPopUp(this);
+            count = LocalStorage.getTodaysCount() - 1;
+            timeValue = model.settings.recommends[count].value;
+            recommendLabel.text = "Recommended " + timeValue.toString() + " minutes rest"
+        }
+
+        protected function clickHandler(e:Event):void {
+            if (e.currentTarget == yesButton) {
+                var timeValue:int = 5;
+                if (model.settings.recommends.length >= count) {
+                    model.settings.recommends[count].value;
+                }
+                var time:TimeVO = new TimeVO();
+                time.minutes = timeValue;
+                model.time = time;
+                model.startTimer();
+            }
+            PopUpManager.removePopUp(this);
+        }
+        ]]></fx:Script>
+
+
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5"
+              paddingRight="5">
+        <s:Label id="recommendLabel"/>
+        <s:HGroup>
+            <s:Button id="yesButton" label="YES" click="clickHandler(event)"/>
+            <s:Button label="NO" click="clickHandler(event)"/>
+        </s:HGroup>
+    </s:VGroup>
+</s:TitleWindow>
