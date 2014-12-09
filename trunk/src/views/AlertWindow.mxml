@@ -8,19 +8,30 @@
         import models.LocalStorage;
         import models.MindTimerModel;
 
+        import mx.controls.Alert;
+        import mx.core.FlexGlobals;
+        import mx.events.CloseEvent;
+
         import mx.managers.PopUpManager;
 
+        import vo.TimeVO;
+
+        private var model:MindTimerModel=MindTimerModel.getInstance();
         protected function creationCompleted(e:Event):void {
             PopUpManager.centerPopUp(this);
         }
 
         protected function clickHandler(e:Event):void {
+            model.soundModel.stopSound();
             if (e.currentTarget == yesButton) {
-                MindTimerModel.getInstance().savePomodoro();
+                model.savePomodoro();
             }
-            MindTimerModel.getInstance().soundModel.stopSound();
             PopUpManager.removePopUp(this);
+            if (model.settings.useRecommends) {
+                PopUpManager.createPopUp(FlexGlobals.topLevelApplication as DisplayObject, RecommendWindow, true);
+            }
         }
+
         ]]></fx:Script>
     <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5" paddingRight="5">
         <s:HGroup>

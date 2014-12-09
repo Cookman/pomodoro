@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx">
+    <fx:Script><![CDATA[
+        import mx.collections.ArrayCollection;
+        import mx.controls.List;
+
+        private function get dataProvider():ArrayCollection {
+            return List(owner).dataProvider as ArrayCollection;
+        }
+
+        public function deleteItemHandler(e:Event):void {
+            var index:int = dataProvider.getItemIndex(this.data);
+            if (index > -1) {
+                dataProvider.removeItemAt(index);
+            }
+        }
+        ]]></fx:Script>
+    <mx:HBox width="100%">
+        <mx:Label text="{dataProvider.getItemIndex(this.data)+1+')'}"/>
+        <mx:Label id="valueLabel" text="{data.value}" width="100%"/>
+        <mx:Button label="x" width="20" height="15" textAlign="left"
+                   click="deleteItemHandler(event)"></mx:Button>
+    </mx:HBox>
+
+</mx:HBox>
