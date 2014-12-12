@@ -2,12 +2,12 @@
 <!--
   Created by Cookman on 09.12.2014.
 -->
-<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx">
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" verticalScrollPolicy="off" horizontalScrollPolicy="off">
   <fx:Script><![CDATA[
     public function get text():String
     {
       return data.toString();
     }
     ]]></fx:Script>
-  <mx:TextInput id="valueInput" text="{data.value}"/>
+  <mx:TextInput id="valueInput" text="{data.value}" borderAlpha="0"/>
 </mx:HBox>

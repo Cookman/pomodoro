@@ -65,7 +65,7 @@ public class MindTimerModel {
             playSound = settings.playSound;
             showPomodoroStatistic = settings.showPomodoroStatistic;
             trayIt.setPomodoroStatistic(settings.showPomodoroStatistic);
-            timeTemplateBar.dataProvider=settings.templates;
+            timeTemplateBar.dataProvider = settings.templates;
         }
     }
 
@@ -73,7 +73,7 @@ public class MindTimerModel {
         if (time.notNull) {
             if (timerStatus != TimerStatuses.STARTED) {
                 lastSelectedTime = time.toString();
-                lastSelectedMinutes=time.minutes.toString();
+                lastSelectedMinutes = time.minutes.toString();
             }
             timerStatus = TimerStatuses.STARTED;
 
@@ -100,14 +100,14 @@ public class MindTimerModel {
         soundModel.stopSound();
     }
 
-    public function updateTimeTemplates():void{
-        timeTemplateBar.dataProvider=settings.templates;
+    public function updateTimeTemplates():void {
+        timeTemplateBar.dataProvider = settings.templates;
     }
 
     private function timerCompleteHandler(e:TimerTickEvent):void {
         var showAlert:Boolean = showPomodoroStatistic;
         if (settings) {
-            if (settings.useFixedPomodoroLength && settings.pomodoroLength.toString() !=lastSelectedMinutes ) {
+            if (settings.useFixedPomodoroLength && settings.pomodoroLength.toString() != lastSelectedMinutes) {
                 showAlert = false;
             }
         }

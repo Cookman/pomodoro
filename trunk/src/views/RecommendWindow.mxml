@@ -21,16 +21,32 @@
         protected function creationCompleted(e:Event):void {
             PopUpManager.centerPopUp(this);
             count = LocalStorage.getTodaysCount() - 1;
-            timeValue = model.settings.recommends[count].value;
+            var recommends:Array = model.settings.recommends;
+            var recCount:int = recommends.length;
+
+            if (count < 0) {
+                count = 0;
+            }
+
+            if (recCount > count) {
+                timeValue = recommends[count].value;
+            }
+            else {
+                if (model.settings.cycleRecommends) {
+                    var index = count - recCount;
+                    while (index >= recCount) {
+                        index = index - recCount;
+                    }
+                    timeValue = recommends[index].value;
+                }
+            }
             recommendLabel.text = "Recommended " + timeValue.toString() + " minutes rest"
         }
 
         protected function clickHandler(e:Event):void {
             if (e.currentTarget == yesButton) {
                 var timeValue:int = 5;
-                if (model.settings.recommends.length >= count) {
-                    model.settings.recommends[count].value;
-                }
+
                 var time:TimeVO = new TimeVO();
                 time.minutes = timeValue;
                 model.time = time;

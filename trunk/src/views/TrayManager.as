@@ -81,7 +81,7 @@ public class TrayManager extends Group {
     }
 
     public function setPomodoroStatistic(value:Boolean):void {
-        gatherStatisticItem.checked = value;
+       gatherStatisticItem.checked = value;
     }
 
     private function create_menu():NativeMenu {
@@ -93,9 +93,10 @@ public class TrayManager extends Group {
         var stopItem:NativeMenuItem = new NativeMenuItem("Stop");
         var exitItem:NativeMenuItem = new NativeMenuItem("Exit");
         gatherStatisticItem = new NativeMenuItem("Count poms");
-       // setPomodoroStatistic();
+        gatherStatisticItem.checked=(model.showPomodoroStatistic);
         statisticItem = new NativeMenuItem(LocalStorage.getTodaysCount().toString() + " pomodoro(s)");
         statisticItem.enabled = false;
+
 
         iconMenu.addItem(statisticItem);
         iconMenu.addItem(gatherStatisticItem);
@@ -105,7 +106,7 @@ public class TrayManager extends Group {
         iconMenu.addItem(stopItem);
         iconMenu.addItem(exitItem);
 
-        iconMenu.addEventListener(Event.SELECT, gatherStatisticHandler);
+        gatherStatisticItem.addEventListener(Event.SELECT, gatherStatisticHandler);
         showItem.addEventListener(Event.SELECT, undock);
         startItem.addEventListener(Event.SELECT, startTimer);
         stopItem.addEventListener(Event.SELECT, stopTimer);
@@ -114,10 +115,16 @@ public class TrayManager extends Group {
         return iconMenu;
     }
 
+
+    public var settingsShown:Boolean;
+
     private function showSettings(event:Event):void {
+        if (settingsShown) return;
         var w:SettingsWindow = new SettingsWindow()
         w.open();
+        settingsShown = true;
         hide();
+        setPomodoroStatistic(model.showPomodoroStatistic);
     }
 
     private function startTimer(event:Event):void {

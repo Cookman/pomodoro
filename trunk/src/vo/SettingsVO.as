@@ -10,6 +10,7 @@ public class SettingsVO {
     public var useFixedPomodoroLength:Boolean=false;
     public var templates:Array=[1,5,10,25];
     public var useRecommends:Boolean=false;
+    public var cycleRecommends:Boolean=false;
     public  var recommends:Array=[];
 
     public function SettingsVO(values:Object) {
@@ -33,6 +34,9 @@ public class SettingsVO {
         }
         if(values.hasOwnProperty("recommends")){
             recommends=values.recommends;
+        }
+        if(values.hasOwnProperty("cycleRecommends")){
+            cycleRecommends=values.cycleRecommends;
         }
     }
 }
