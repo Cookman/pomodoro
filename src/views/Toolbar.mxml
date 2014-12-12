@@ -6,6 +6,8 @@
 		<![CDATA[
         import models.MindTimerModel;
 
+        import vo.TimerStatuses;
+
         [Bindable]
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
@@ -27,7 +29,7 @@
     <s:HGroup horizontalAlign="center" verticalAlign="middle">
         <s:Button id="startBtn" width="55" height="100%" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
                   click="startBtn_clickHandler(event)"/>
-        <s:Button id="stopBtn" width="55" height="100%" label="Stop" enabled="{startBtn.enabled}"
+        <s:Button id="stopBtn" width="55" height="100%" label="Stop" enabled="{model.timerStatus==TimerStatuses.STARTED}"
                   click="stopBtn_clickHandler(event)"/>
         <s:Button id="resetBtn" width="55" height="100%" label="Reset" click="resetBtn_clickHandler(event)"/>
     </s:HGroup>

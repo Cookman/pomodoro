@@ -33,6 +33,7 @@
                 template3.text = settings.templates[2];
                 template4.text = settings.templates[3];
                 useRecommendsCheckBox.selected = settings.useRecommends;
+                cycleRecommendsCheckBox.selected = settings.cycleRecommends;
                 timeRecommendList.dataProvider = new ArrayCollection(settings.recommends);
             }
         }
@@ -47,22 +48,27 @@
                 settings.templates[2] = template3.text;
                 settings.templates[3] = template4.text;
                 settings.useRecommends = useRecommendsCheckBox.selected;
+                settings.cycleRecommends = cycleRecommendsCheckBox.selected;
                 settings.recommends = timeRecommendList.dataProvider.toArray();
-                model.updateTimeTemplates();
                 LocalStorage.saveSettings(settings);
+                model.loadSettings();
+                model.trayIt.setPomodoroStatistic(model.showPomodoroStatistic);
                 model.trayIt.show();
+                model.trayIt.settingsShown = false;
                 this.close();
             }
         }
 
         protected function cancelHandler(event:Event):void {
             model.trayIt.show();
+            model.trayIt.settingsShown = false;
+            model.trayIt.setPomodoroStatistic(model.showPomodoroStatistic);
             this.close();
         }
 
         protected function addTime(event:Event):void {
             timeRecommendList.dataProvider.addItem({value: addTimeInput.text})
-            addTimeInput.text="";
+            addTimeInput.text = "";
         }
 
         private function editEndHandler(event:ListEvent):void {
@@ -100,18 +106,17 @@
                 </s:VGroup>
             </mx:VBox>
 
-
             <mx:HBox width="100%" height="100" label="Recommend" verticalScrollPolicy="off">
 
                 <mx:VBox>
-                <s:CheckBox id="useRecommendsCheckBox" label="Use recommends"/>
-                <mx:HBox>
-                    <s:TextInput id="addTimeInput" width="30" restrict="0-9"/>
-                    <s:Button id="addButton" label="Add" click="addTime(event)" enabled="{addTimeInput.text!=''}"/>
-                </mx:HBox>
+                    <s:CheckBox id="useRecommendsCheckBox" label="Use recommends"/>
+                    <s:CheckBox id="cycleRecommendsCheckBox" label="Cycle recommends"/>
+                    <mx:HBox>
+                        <s:TextInput id="addTimeInput" width="30" restrict="0-9"/>
+                        <s:Button id="addButton" label="Add" click="addTime(event)" enabled="{addTimeInput.text!=''}"/>
+                    </mx:HBox>
                 </mx:VBox>
                 <mx:List id="timeRecommendList" width="100%" height="100%"
-
                          itemEditor="views.renderer.CustomListItemEditor"
                          itemRenderer="views.renderer.CustomListItemRenderer"
                          editable="true"
@@ -120,7 +125,6 @@
                          itemEditEnd="editEndHandler(event)">
                 </mx:List>
             </mx:HBox>
-
 
         </mx:TabNavigator>
         <s:HGroup>
