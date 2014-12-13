@@ -11,7 +11,7 @@ public class LocalStorage {
 
     public static const SETTINGS:String = "Settings";
 
-    public static function savePomodoro(pomodoroTime:String) {
+    public static function savePomodoro(pomodoroTime:String):void {
         var jsonData:Object = getStorageObject(getDateString())
         jsonData[getTimeString()] = pomodoroTime;
         saveStorageObject(getDateString(), jsonData);
@@ -33,7 +33,7 @@ public class LocalStorage {
             jsonData = {};
         }
         else {
-            var stringData = storedValue.readUTFBytes(storedValue.length)
+            var stringData:String = storedValue.readUTFBytes(storedValue.length)
             jsonData = JSON.parse(stringData);
         }
         return jsonData;

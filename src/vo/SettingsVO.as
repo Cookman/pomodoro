@@ -2,6 +2,8 @@
  * Created by Cookman on 29.11.2014.
  */
 package vo {
+import models.MindTimerModel;
+
 public class SettingsVO {
 
     public var playSound:Boolean=false;
@@ -12,6 +14,7 @@ public class SettingsVO {
     public var useRecommends:Boolean=false;
     public var cycleRecommends:Boolean=false;
     public  var recommends:Array=[];
+    public var language:String=MindTimerModel.EN_US;
 
     public function SettingsVO(values:Object) {
         if (values.hasOwnProperty("playSound")) {
@@ -37,6 +40,9 @@ public class SettingsVO {
         }
         if(values.hasOwnProperty("cycleRecommends")){
             cycleRecommends=values.cycleRecommends;
+        }
+        if(values.hasOwnProperty("language")){
+            language=values.language;
         }
     }
 }

@@ -4,7 +4,8 @@
 -->
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
           xmlns:mx="library://ns.adobe.com/flex/mx" resizable="false"
-          width="250" height="150" showStatusBar="false" isPopUp="true" alwaysInFront="true" title="Settings"
+          width="250" height="150" showStatusBar="false" isPopUp="true" alwaysInFront="true"
+          title="{resourceManager.getString('resources', 'SETTINGS')}"
           maximizable="false"
           minimizable="false" type="{NativeWindowType.UTILITY}"
           creationComplete="creationCompleteHandler(event)">
@@ -35,6 +36,11 @@
                 useRecommendsCheckBox.selected = settings.useRecommends;
                 cycleRecommendsCheckBox.selected = settings.cycleRecommends;
                 timeRecommendList.dataProvider = new ArrayCollection(settings.recommends);
+                for each(var item:Object in languageBox.dataProvider) {
+                    if (item.value == settings.language) {
+                        languageBox.selectedItem = item;
+                    }
+                }
             }
         }
 
@@ -50,6 +56,7 @@
                 settings.useRecommends = useRecommendsCheckBox.selected;
                 settings.cycleRecommends = cycleRecommendsCheckBox.selected;
                 settings.recommends = timeRecommendList.dataProvider.toArray();
+                settings.language = languageBox.selectedItem.value;
                 LocalStorage.saveSettings(settings);
                 model.loadSettings();
                 model.trayIt.setPomodoroStatistic(model.showPomodoroStatistic);
@@ -60,6 +67,7 @@
         }
 
         protected function cancelHandler(event:Event):void {
+            model.doLocalization(settings.language)
             model.trayIt.show();
             model.trayIt.settingsShown = false;
             model.trayIt.setPomodoroStatistic(model.showPomodoroStatistic);
@@ -78,18 +86,23 @@
             timeRecommendList.destroyItemEditor();
             timeRecommendList.dataProvider.itemUpdated(timeRecommendList.editedItemRenderer);
         }
+
+        private function languageChangeHandler(event:Event):void {
+            model.doLocalization(languageBox.selectedItem.value)
+        }
         ]]></fx:Script>
     <s:VGroup width="100%" height="100%">
         <mx:TabNavigator width="100%" height="100%" creationPolicy="all">
-            <mx:VBox width="100%" height="100%" label="Poms">
-                <s:CheckBox id="countPoms" label="Count poms"></s:CheckBox>
+            <mx:VBox width="100%" height="100%" label="{resourceManager.getString('resources', 'POMS')}">
+                <s:CheckBox id="countPoms" label="{resourceManager.getString('resources', 'COUNT_POMS')}"></s:CheckBox>
                 <mx:HBox width="100%" height="100%">
-                    <s:CheckBox id="usePomLength" label="Use pom length"></s:CheckBox>
+                    <s:CheckBox id="usePomLength"
+                                label="{resourceManager.getString('resources', 'USE_POM_LENGTH')}"></s:CheckBox>
                     <s:TextInput id="pomodoroLength" enabled="{usePomLength.selected}" text="25" width="40"
                                  restrict="0-9"/>
                 </mx:HBox>
             </mx:VBox>
-            <mx:VBox width="100%" height="100%" label="TimeTemplates">
+            <mx:VBox width="100%" height="100%" label="{resourceManager.getString('resources', 'TIME_TEMPLATES')}">
                 <s:VGroup>
                     <s:HGroup verticalAlign="middle">
                         <s:Label text="time 1"/>
@@ -106,14 +119,18 @@
                 </s:VGroup>
             </mx:VBox>
 
-            <mx:HBox width="100%" height="100" label="Recommend" verticalScrollPolicy="off">
+            <mx:HBox width="100%" height="100" label="{resourceManager.getString('resources', 'RECOMMEND')}"
+                     verticalScrollPolicy="off">
 
                 <mx:VBox>
-                    <s:CheckBox id="useRecommendsCheckBox" label="Use recommends"/>
-                    <s:CheckBox id="cycleRecommendsCheckBox" label="Cycle recommends"/>
+                    <s:CheckBox id="useRecommendsCheckBox"
+                                label="{resourceManager.getString('resources', 'USE_RECOMMENDS')}"/>
+                    <s:CheckBox id="cycleRecommendsCheckBox"
+                                label="{resourceManager.getString('resources', 'CYCLE_RECOMMENDS')}"/>
                     <mx:HBox>
                         <s:TextInput id="addTimeInput" width="30" restrict="0-9"/>
-                        <s:Button id="addButton" label="Add" click="addTime(event)" enabled="{addTimeInput.text!=''}"/>
+                        <s:Button id="addButton" label="{resourceManager.getString('resources', 'ADD')}"
+                                  click="addTime(event)" enabled="{addTimeInput.text!=''}"/>
                     </mx:HBox>
                 </mx:VBox>
                 <mx:List id="timeRecommendList" width="100%" height="100%"
@@ -126,10 +143,18 @@
                 </mx:List>
             </mx:HBox>
 
+            <mx:HBox width="100%" height="100" label="{resourceManager.getString('resources', 'LANGUAGE')}"
+                     verticalScrollPolicy="off">
+                <mx:ComboBox id="languageBox" labelField="label"
+                             dataProvider="{[{label:'English',value:MindTimerModel.EN_US},{label:'Русский',value:MindTimerModel.RU_RU}]}"
+                             change="languageChangeHandler(event)"></mx:ComboBox>
+            </mx:HBox>
+
+
         </mx:TabNavigator>
         <s:HGroup>
-            <mx:Button click="okHandler(event)" label="OK"/>
-            <mx:Button click="cancelHandler(event)" label="Cancel"/>
+            <mx:Button click="okHandler(event)" label="{resourceManager.getString('resources', 'OK')}"/>
+            <mx:Button click="cancelHandler(event)" label="{resourceManager.getString('resources', 'CANCEL')}"/>
         </s:HGroup>
     </s:VGroup>
 </s:Window>

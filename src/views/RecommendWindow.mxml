@@ -33,14 +33,14 @@
             }
             else {
                 if (model.settings.cycleRecommends) {
-                    var index = count - recCount;
+                    var index:int = count - recCount;
                     while (index >= recCount) {
                         index = index - recCount;
                     }
                     timeValue = recommends[index].value;
                 }
             }
-            recommendLabel.text = "Recommended " + timeValue.toString() + " minutes rest"
+            recommendLabel.text = resourceManager.getString('resources', 'RECOMMENDED') + timeValue.toString() + resourceManager.getString('resources', 'MINUTES_REST');
         }
 
         protected function clickHandler(e:Event):void {
@@ -61,8 +61,9 @@
               paddingRight="5">
         <s:Label id="recommendLabel"/>
         <s:HGroup>
-            <s:Button id="yesButton" label="YES" click="clickHandler(event)"/>
-            <s:Button label="NO" click="clickHandler(event)"/>
+            <s:Button id="yesButton" label="{resourceManager.getString('resources', 'YES')}"
+                      click="clickHandler(event)"/>
+            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)"/>
         </s:HGroup>
     </s:VGroup>
 </s:TitleWindow>

@@ -29,9 +29,9 @@
     <s:HGroup horizontalAlign="center" verticalAlign="middle">
         <s:Button id="startBtn" width="55" height="100%" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
                   click="startBtn_clickHandler(event)"/>
-        <s:Button id="stopBtn" width="55" height="100%" label="Stop" enabled="{model.timerStatus==TimerStatuses.STARTED}"
+        <s:Button id="stopBtn" width="55" height="100%" label="{resourceManager.getString('resources', 'STOP')}" enabled="{model.timerStatus==TimerStatuses.STARTED}"
                   click="stopBtn_clickHandler(event)"/>
-        <s:Button id="resetBtn" width="55" height="100%" label="Reset" click="resetBtn_clickHandler(event)"/>
+        <s:Button id="resetBtn" width="55" height="100%" label="{resourceManager.getString('resources', 'RESET')}" click="resetBtn_clickHandler(event)"/>
     </s:HGroup>
 
 </s:VGroup>
