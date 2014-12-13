@@ -8,18 +8,23 @@ import flash.display.DisplayObject;
 import mx.collections.ArrayCollection;
 import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
+import mx.resources.IResourceManager;
+import mx.resources.ResourceManager;
 
 import views.AlertWindow;
 import views.TimeSelectBar;
 import views.TrayManager;
 
-import vo.ButtonLabels;
 import vo.SettingsVO;
 import vo.TimeVO;
 import vo.TimerStatuses;
 
 [Bindable]
 public class MindTimerModel {
+
+    public static const EN_US:String = "en_US";
+    public static const RU_RU:String = "ru_RU";
+
     private static var _instance:MindTimerModel = null;
 
     public var time:TimeVO = new TimeVO();
@@ -27,19 +32,22 @@ public class MindTimerModel {
     public var timerInstance:TimerUtil = new TimerUtil();
     public var trayIt:TrayManager;
     public var timeTemplateBar:TimeSelectBar;
+
     public var buttonLabel:String;
     public var lastSelectedTime:String;
     public var lastSelectedMinutes:String;
 
-    [Bindable]
+
     public var timePresets:ArrayCollection = new ArrayCollection([1, 5, 10, 25]);
 
-    [Bindable]
+
     public var playSound:Boolean = false;
-    [Bindable]
+
     public var showPomodoroStatistic:Boolean = false;
 
     public var soundModel:SoundModel = new SoundModel();
+
+    private var resourceManager:IResourceManager = ResourceManager.getInstance();
 
     public function MindTimerModel(se:singletoneEnforcer):void {
         initialize();
@@ -57,6 +65,12 @@ public class MindTimerModel {
         timerInstance.addEventListener(TimerTickEvent.TIMER_TICK, timerTickHandler);
     }
 
+    public function doLocalization(lang:String):void {
+        resourceManager.localeChain = [lang]
+        resourceManager.initializeLocaleChain([lang]);
+        buttonLabel = resourceManager.getString('resources', 'START');
+    }
+
     public var settings:SettingsVO;
 
     public function loadSettings():void {
@@ -66,6 +80,7 @@ public class MindTimerModel {
             showPomodoroStatistic = settings.showPomodoroStatistic;
             trayIt.setPomodoroStatistic(settings.showPomodoroStatistic);
             timeTemplateBar.dataProvider = settings.templates;
+            doLocalization(settings.language);
         }
     }
 
@@ -78,7 +93,7 @@ public class MindTimerModel {
             timerStatus = TimerStatuses.STARTED;
 
             timerInstance.setTimer(time);
-            buttonLabel = ButtonLabels.LABEL_HIDE;
+            buttonLabel = resourceManager.getString('resources', 'HIDE');
             timerInstance.startTimer();
             trayIt.iconNumber = 1;
             trayIt.hide();
@@ -86,7 +101,7 @@ public class MindTimerModel {
     }
 
     public function stopTimer():void {
-        buttonLabel = ButtonLabels.LABEL_START;
+        buttonLabel = resourceManager.getString('resources', 'START');
         timerStatus = TimerStatuses.STOPED;
         timerInstance.stopTimer();
         trayIt.iconNumber = 0;
@@ -96,7 +111,7 @@ public class MindTimerModel {
         time = new TimeVO();
         timerStatus = TimerStatuses.STOPED;
         timerInstance.stopTimer();
-        buttonLabel = ButtonLabels.LABEL_START;
+        buttonLabel = resourceManager.getString('resources', 'START');
         soundModel.stopSound();
     }
 
@@ -116,7 +131,7 @@ public class MindTimerModel {
             PopUpManager.createPopUp(FlexGlobals.topLevelApplication as DisplayObject, AlertWindow, true);
         }
         time = new TimeVO();
-        buttonLabel = ButtonLabels.LABEL_START;
+        buttonLabel = ResourceManager.getInstance().getString('resources', 'START');
         timerStatus = TimerStatuses.STOPED;
         trayIt.show();
         trayIt.iconNumber = 0;

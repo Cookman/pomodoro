@@ -9,8 +9,6 @@
 		<![CDATA[
         import models.MindTimerModel;
 
-        import vo.ButtonLabels;
-
         [Bindable]
         private var tiWidth:int = 30;
         [Bindable]
@@ -19,9 +17,9 @@
 	</fx:Script>
     <s:HGroup filters="{shading}">
         <s:Label text="{model.time.hoursString}" styleName="timeStyle"/>
-        <s:Label text="{ButtonLabels.LABEL_DELIMITER}" styleName="timeStyle"/>
+        <s:Label text="{resourceManager.getString('resources', 'LABEL_DELIMITER')}" styleName="timeStyle"/>
         <s:Label text="{model.time.minutesString}" styleName="timeStyle"/>
-        <s:Label text="{ButtonLabels.LABEL_DELIMITER}" styleName="timeStyle"/>
+        <s:Label text="{resourceManager.getString('resources', 'LABEL_DELIMITER')}" styleName="timeStyle"/>
         <s:Label text="{model.time.secondsString}" styleName="timeStyle"/>
     </s:HGroup>
 </s:Group>

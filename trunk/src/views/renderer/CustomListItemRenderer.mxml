@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx">
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"  verticalScrollPolicy="off" horizontalScrollPolicy="off">
     <fx:Script><![CDATA[
         import mx.collections.ArrayCollection;
         import mx.controls.List;
@@ -15,7 +15,7 @@
             }
         }
         ]]></fx:Script>
-    <mx:HBox width="100%">
+    <mx:HBox width="100%"  verticalScrollPolicy="off" horizontalScrollPolicy="off">
         <mx:Label text="{dataProvider.getItemIndex(this.data)+1+')'}"/>
         <mx:Label id="valueLabel" text="{data.value}" width="100%"/>
         <mx:Button label="x" width="20" height="15" textAlign="left"
