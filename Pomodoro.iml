@@ -3,7 +3,7 @@
   <component name="FlexBuildConfigurationManager" active="Pomodoro">
     <configurations>
       <configuration name="Pomodoro" target-platform="Desktop" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/Pomodoro">
-        <dependencies target-player="11.1">
+        <dependencies>
           <sdk name="flex_sdk_4.6" />
         </dependencies>
         <compiler-options>
@@ -12,7 +12,7 @@
           </map>
           <option name="additionalOptions" value="-allow-source-path-overlap=true" />
         </compiler-options>
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main.xml" package-file-name="Main">
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/src/Main.xml" package-file-name="Pomodoro">
           <files-to-package>
             <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/assets" path-in-package="assets" />
           </files-to-package>
