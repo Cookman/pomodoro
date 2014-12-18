@@ -8,6 +8,8 @@
                        titleIcon="@Embed('assets/pomodoro16.png')" backgroundFrameRate="-1"
                        creationComplete="windowedapplication1_creationCompleteHandler(event)">
 
+
+
     <fx:Style source="Style.css"/>
     <fx:Metadata>
         [ResourceBundle("resources")]
@@ -33,7 +35,8 @@
         }
 
         protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
-            trayIt.initializeManager();
+
+                trayIt.initializeManager();
             model.trayIt = trayIt;
             model.timeTemplateBar = timeTemplateBar;
             nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, minimizeListener);

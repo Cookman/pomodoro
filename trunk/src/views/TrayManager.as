@@ -9,8 +9,6 @@ import models.MindTimerModel;
 
 import spark.components.Group;
 
-import vo.SettingsVO;
-
 public class TrayManager extends Group {
     [Bindable]
     private var model:MindTimerModel = MindTimerModel.getInstance();
@@ -90,7 +88,6 @@ public class TrayManager extends Group {
 
     public function setPomodoroStatistic(value:Boolean):void {
         createIcon();
-        gatherStatisticItem.checked = value;
     }
 
     private var iconMenu:NativeMenu;
@@ -99,20 +96,15 @@ public class TrayManager extends Group {
         iconMenu = new NativeMenu();
 
         var settingsItem:NativeMenuItem = new NativeMenuItem(this.resourceManager.getString('resources', 'SETTINGS'));
-
         var exitItem:NativeMenuItem = new NativeMenuItem(resourceManager.getString('resources', 'EXIT'));
-        gatherStatisticItem = new NativeMenuItem(resourceManager.getString('resources', 'COUNT_POMS'));
-        gatherStatisticItem.checked = (model.showPomodoroStatistic);
 
-        statisticItem = new NativeMenuItem(countLabel);
-        statisticItem.enabled = false;
-        iconMenu.addItemAt(statisticItem, 0);
-
-
-        iconMenu.addItem(gatherStatisticItem);
+        if(model.showPomodoroStatistic) {
+            statisticItem = new NativeMenuItem(countLabel);
+            statisticItem.enabled = false;
+            iconMenu.addItemAt(statisticItem, 0);
+        }
         iconMenu.addItem(settingsItem);
         iconMenu.addItem(exitItem);
-        gatherStatisticItem.addEventListener(Event.SELECT, gatherStatisticHandler);
         exitItem.addEventListener(Event.SELECT, exitApp);
         settingsItem.addEventListener(Event.SELECT, showSettings)
         return iconMenu;
@@ -133,17 +125,6 @@ public class TrayManager extends Group {
         iconNumber += 1;
         if (iconNumber > 4)iconNumber = 1;
         createIcon();
-    }
-
-    private function gatherStatisticHandler(e:Event):void {
-        gatherStatisticItem.checked = !gatherStatisticItem.checked;
-        model.showPomodoroStatistic = gatherStatisticItem.checked;
-
-        var settings:SettingsVO = model.settings;
-        if (settings) {
-            settings.showPomodoroStatistic = gatherStatisticItem.checked;
-            LocalStorage.saveSettings(settings);
-        }
     }
 
     private function undock(event:Event):void {

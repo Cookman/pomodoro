@@ -15,6 +15,7 @@ public class SettingsVO {
     public var cycleRecommends:Boolean=false;
     public  var recommends:Array=[];
     public var language:String=MindTimerModel.EN_US;
+    public var resetDay:Boolean=false;
 
     public function SettingsVO(values:Object) {
         if (values.hasOwnProperty("playSound")) {
@@ -43,6 +44,9 @@ public class SettingsVO {
         }
         if(values.hasOwnProperty("language")){
             language=values.language;
+        }
+        if(values.hasOwnProperty("resetDay")){
+            resetDay=values.resetDay;
         }
     }
 }

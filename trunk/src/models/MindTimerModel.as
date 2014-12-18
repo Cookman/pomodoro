@@ -4,8 +4,9 @@ import Utils.TimerUtil;
 import events.TimerTickEvent;
 
 import flash.display.DisplayObject;
+import flash.events.TimerEvent;
+import flash.utils.Timer;
 
-import mx.collections.ArrayCollection;
 import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
 import mx.resources.IResourceManager;
@@ -36,9 +37,6 @@ public class MindTimerModel {
     public var buttonLabel:String;
     public var lastSelectedTime:String;
     public var lastSelectedMinutes:String;
-
-
-    public var timePresets:ArrayCollection = new ArrayCollection([1, 5, 10, 25]);
 
 
     public var playSound:Boolean = false;
@@ -72,6 +70,7 @@ public class MindTimerModel {
     }
 
     public var settings:SettingsVO;
+    private var dayTimer:Timer;
 
     public function loadSettings():void {
         settings = LocalStorage.loadSettings();
@@ -81,6 +80,36 @@ public class MindTimerModel {
             trayIt.setPomodoroStatistic(settings.showPomodoroStatistic);
             timeTemplateBar.dataProvider = settings.templates;
             doLocalization(settings.language);
+            activateResetDay();
+        }
+    }
+
+
+    private var currentDate:Date;
+
+    public function activateResetDay():void {
+        if (settings.resetDay) {
+            currentDate = new Date();
+            //check each 5 minutes
+            dayTimer = new Timer(1000*60*5, 0);
+            dayTimer.addEventListener(TimerEvent.TIMER, dayTimerHandler);
+            dayTimer.start();
+        }
+        else {
+            if (dayTimer) {
+                dayTimer.stop();
+                dayTimer.removeEventListener(TimerEvent.TIMER, dayTimerHandler);
+            }
+        }
+    }
+
+    private function dayTimerHandler(event:TimerEvent):void {
+        if (settings.resetDay) {
+            var date:Date = new Date();
+            if (date.getDay() != currentDate.getDay()) {
+                trayIt.updatePomodorosCount();
+                currentDate = date;
+            }
         }
     }
 
