@@ -98,7 +98,7 @@ public class TrayManager extends Group {
         var settingsItem:NativeMenuItem = new NativeMenuItem(this.resourceManager.getString('resources', 'SETTINGS'));
         var exitItem:NativeMenuItem = new NativeMenuItem(resourceManager.getString('resources', 'EXIT'));
 
-        if(model.showPomodoroStatistic) {
+        if (model.showPomodoroStatistic) {
             statisticItem = new NativeMenuItem(countLabel);
             statisticItem.enabled = false;
             iconMenu.addItemAt(statisticItem, 0);
