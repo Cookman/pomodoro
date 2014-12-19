@@ -91,7 +91,7 @@ public class MindTimerModel {
         if (settings.resetDay) {
             currentDate = new Date();
             //check each 5 minutes
-            dayTimer = new Timer(1000*60*5, 0);
+            dayTimer = new Timer(1000 * 60 * 5, 0);
             dayTimer.addEventListener(TimerEvent.TIMER, dayTimerHandler);
             dayTimer.start();
         }

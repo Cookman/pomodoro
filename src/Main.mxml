@@ -9,7 +9,6 @@
                        creationComplete="windowedapplication1_creationCompleteHandler(event)">
 
 
-
     <fx:Style source="Style.css"/>
     <fx:Metadata>
         [ResourceBundle("resources")]
@@ -36,7 +35,7 @@
 
         protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
 
-                trayIt.initializeManager();
+            trayIt.initializeManager();
             model.trayIt = trayIt;
             model.timeTemplateBar = timeTemplateBar;
             nativeWindow.addEventListener(NativeWindowDisplayStateEvent.DISPLAY_STATE_CHANGE, minimizeListener);
@@ -56,7 +55,6 @@
         private function playSoundClickHandler(e:Event):void {
             model.settings.playSound = model.playSound;
             LocalStorage.saveSettings(model.settings);
-
         }
         ]]></fx:Script>
     <view:TrayManager id="trayIt"/>

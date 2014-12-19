@@ -5,8 +5,14 @@
     <fx:Script>
 		<![CDATA[
         import models.MindTimerModel;
-
         import vo.TimerStatuses;
+
+        [Embed(source="/assets/play.png")]
+        private var IconPlay:Class;
+        [Embed(source="/assets/pause.png")]
+        private var IconPause:Class;
+        [Embed(source="/assets/reset.png")]
+        private var IconReset:Class;
 
         [Bindable]
         private var model:MindTimerModel = MindTimerModel.getInstance();
@@ -27,11 +33,22 @@
 
 
     <s:HGroup horizontalAlign="center" verticalAlign="middle">
-        <s:Button id="startBtn" width="55" height="100%" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
-                  click="startBtn_clickHandler(event)"/>
-        <s:Button id="stopBtn" width="55" height="100%" label="{resourceManager.getString('resources', 'STOP')}" enabled="{model.timerStatus==TimerStatuses.STARTED}"
-                  click="stopBtn_clickHandler(event)"/>
-        <s:Button id="resetBtn" width="55" height="100%" label="{resourceManager.getString('resources', 'RESET')}" click="resetBtn_clickHandler(event)"/>
+        <s:Button id="startBtn" width="60" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
+                  click="startBtn_clickHandler(event)" />
+        <s:Button id="stopBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'STOP')}"
+                  enabled="{model.timerStatus==TimerStatuses.STARTED}"
+                  click="stopBtn_clickHandler(event)" />
+        <s:Button id="resetBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'RESET')}"
+                  click="resetBtn_clickHandler(event)" />
     </s:HGroup>
+
+    <!--
+        <s:Button id="startBtn" width="60" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
+                  click="startBtn_clickHandler(event)" icon="{IconPlay}"/>
+        <s:Button id="stopBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'STOP')}"
+                  enabled="{model.timerStatus==TimerStatuses.STARTED}"
+                  click="stopBtn_clickHandler(event)" icon="{IconPause}"/>
+        <s:Button id="resetBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'RESET')}"
+                  click="resetBtn_clickHandler(event)" icon="{IconReset}"/>-->
 
 </s:VGroup>
