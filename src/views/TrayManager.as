@@ -15,13 +15,21 @@ public class TrayManager extends Group {
     [Embed(source="/assets/stop.png")]
     private var IconStoped:Class;
     [Embed(source="/assets/clock.png")]
-    private var IconRunning:Class;
+    private var IconRunning0:Class;
     [Embed(source="/assets/clock1.png")]
     private var IconRunning1:Class;
     [Embed(source="/assets/clock2.png")]
     private var IconRunning2:Class;
     [Embed(source="/assets/clock3.png")]
     private var IconRunning3:Class;
+    [Embed(source="/assets/clock4.png")]
+    private var IconRunning4:Class;
+    [Embed(source="/assets/clock5.png")]
+    private var IconRunning5:Class;
+    [Embed(source="/assets/clock6.png")]
+    private var IconRunning6:Class;
+    [Embed(source="/assets/clock7.png")]
+    private var IconRunning7:Class;
     private var clockClass:Class = IconStoped;
     [Bindable]
     private var _icon:BitmapData;
@@ -48,16 +56,11 @@ public class TrayManager extends Group {
     }
 
     private function createIcon():void {
-        if (iconNumber == 0)
-            clockClass = IconStoped;
-        if (iconNumber == 1)
-            clockClass = IconRunning;
-        if (iconNumber == 2)
-            clockClass = IconRunning1;
-        if (iconNumber == 3)
-            clockClass = IconRunning2;
-        if (iconNumber == 4)
-            clockClass = IconRunning3;
+
+        if (iconNumber > 7)iconNumber = 0;
+            clockClass = this["IconRunning"+iconNumber];
+
+
 
         _icon = new BitmapData(16, 16, true, 0xFFFFFF);
 
@@ -123,7 +126,7 @@ public class TrayManager extends Group {
 
     public function changeIcon():void {
         iconNumber += 1;
-        if (iconNumber > 4)iconNumber = 1;
+        if (iconNumber > 7)iconNumber = 0;
         createIcon();
     }
 
