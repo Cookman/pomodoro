@@ -16,8 +16,11 @@ public class SettingsVO {
     public var recommends:Array = [];
     public var language:String = MindTimerModel.EN_US;
     public var resetDay:Boolean = false;
+    public var useMp3:Boolean;
+    public var soundFileName:String;
 
     public function SettingsVO(values:Object) {
+
         if (values.hasOwnProperty("playSound")) {
             playSound = values.playSound;
         }
@@ -47,6 +50,13 @@ public class SettingsVO {
         }
         if (values.hasOwnProperty("resetDay")) {
             resetDay = values.resetDay;
+        }
+        if (values.hasOwnProperty("useMp3")) {
+            useMp3 = values.useMp3;
+        }
+        soundFileName
+        if (values.hasOwnProperty("soundFileName")) {
+            soundFileName = values.soundFileName;
         }
     }
 }
