@@ -165,7 +165,7 @@ public class MindTimerModel {
         trayIt.show();
         trayIt.iconNumber = 0;
         if (playSound) {
-            soundModel.playSound();
+            soundModel.playSound(settings.useMp3);
         } else {
             soundModel.stopSound();
         }

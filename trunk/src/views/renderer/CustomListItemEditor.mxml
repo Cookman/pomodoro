@@ -2,12 +2,18 @@
 <!--
   Created by Cookman on 09.12.2014.
 -->
-<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" verticalScrollPolicy="off" horizontalScrollPolicy="off">
-  <fx:Script><![CDATA[
-    public function get text():String
-    {
-      return data.toString();
-    }
-    ]]></fx:Script>
-  <mx:TextInput id="valueInput" text="{data.value}" borderAlpha="0"/>
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" verticalScrollPolicy="off"
+         horizontalScrollPolicy="off" borderAlpha="0"
+         creationComplete="creationCompleteHandler(event)">
+    <fx:Script><![CDATA[
+
+        protected function creationCompleteHandler(event:Event):void{
+            valueInput.setFocus();
+        }
+
+        public function get text():String {
+            return data.toString();
+        }
+        ]]></fx:Script>
+    <mx:TextInput id="valueInput" text="{data.value}" borderAlpha="0"  restrict="0-9" maxChars="2" focusAlpha="0" dropShadowVisible="false"/>
 </mx:HBox>
