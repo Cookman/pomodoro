@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
-          xmlns:s="library://ns.adobe.com/flex/spark"
+          xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="mx.controls.*"
           gap="0">
     <fx:Script>
 		<![CDATA[
@@ -32,7 +32,7 @@
 	</fx:Script>
 
 
-    <s:HGroup horizontalAlign="center" verticalAlign="middle">
+    <!--<s:HGroup horizontalAlign="center" verticalAlign="middle">
         <s:Button id="startBtn" width="60" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
                   click="startBtn_clickHandler(event)" />
         <s:Button id="stopBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'STOP')}"
@@ -40,15 +40,16 @@
                   click="stopBtn_clickHandler(event)" />
         <s:Button id="resetBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'RESET')}"
                   click="resetBtn_clickHandler(event)" />
-    </s:HGroup>
+    </s:HGroup>-->
 
-    <!--
-        <s:Button id="startBtn" width="60" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}"
+    <s:HGroup horizontalAlign="center" verticalAlign="middle">
+        <mx:Button id="startBtn" width="60" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}" skin="mx.skins.ProgrammaticSkin"
                   click="startBtn_clickHandler(event)" icon="{IconPlay}"/>
         <s:Button id="stopBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'STOP')}"
                   enabled="{model.timerStatus==TimerStatuses.STARTED}"
                   click="stopBtn_clickHandler(event)" icon="{IconPause}"/>
         <s:Button id="resetBtn" width="60"  height="25"  label="{resourceManager.getString('resources', 'RESET')}"
-                  click="resetBtn_clickHandler(event)" icon="{IconReset}"/>-->
+                  click="resetBtn_clickHandler(event)" icon="{IconReset}"/>
+    </s:HGroup>
 
 </s:VGroup>

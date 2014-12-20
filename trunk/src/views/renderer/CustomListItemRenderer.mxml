@@ -16,10 +16,11 @@
             }
         }
         ]]></fx:Script>
+
     <mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingRight="5">
         <mx:Label text="{dataProvider.getItemIndex(this.data)+1+')'}"/>
         <mx:Label id="valueLabel" text="{data.value}" width="100%"/>
-        <mx:Button label="x" width="30" height="100%" textAlign="left"
+        <mx:Button label="x" width="20" height="100%" textAlign="center" paddingLeft="5" paddingRight="5"  toolTip="Delete" skin="mx.skins.ProgrammaticSkin"
                    click="deleteItemHandler(event)"></mx:Button>
     </mx:HBox>
 
