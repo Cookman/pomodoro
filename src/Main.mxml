@@ -6,6 +6,7 @@
                        showStatusBar="false" alwaysInFront="true"
                        title="{resourceManager.getString('resources', 'POMODORO_TITLE')}"
                        titleIcon="@Embed('assets/pomodoro16.png')" backgroundFrameRate="-1"
+                        backgroundColor="0x566FBA"
                        creationComplete="windowedapplication1_creationCompleteHandler(event)">
 
 
