@@ -1,21 +1,28 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
-.timerBorder{
-	 border-color:#000000;
-	 border-style: solid;
-	 border-thickness: 1;
+
+.timerBorder {
+    border-color: #000000;
+    border-style: solid;
+    border-thickness: 1;
 }
-.timeEditStyle{
-	font-Size:14;
-	fontWeight:bold;
-	fontFamily:'Times new roman';
-	
+
+.timeEditStyle {
+    font-Size: 14;
+    fontWeight: bold;
+    fontFamily: 'Times new roman';
+
 }
-.timeStyle
-{
-	font-Size:24;
-	fontWeight:bold;
-	color:white;
-	fontFamily:'Times new roman';
+
+.timeStyle {
+    font-Size: 24;
+    fontWeight: bold;
+    color: white;
+    fontFamily: 'Times new roman';
+    fontAntiAliasType: advanced;
+}
+
+.boxStyle{
+    backgroundGradientColors: aqua #faebd7;
 }

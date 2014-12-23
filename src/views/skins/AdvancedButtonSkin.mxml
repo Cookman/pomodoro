@@ -56,21 +56,6 @@
             super.initializationComplete();
         }
 
-        /**
-         *  @private
-         */
-        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
-            var cr:Number = getStyle("cornerRadius");
-
-            if (cornerRadius != cr) {
-                cornerRadius = cr;
-                fill.radiusX = cornerRadius;
-                lowlight.radiusX = cornerRadius;
-            }
-            super.updateDisplayList(unscaledWidth, unscaledHeight);
-        }
-
-        private var cornerRadius:Number = 2;
         ]]>
     </fx:Script>
 
@@ -85,40 +70,30 @@
 
     <!-- layer 2: fill -->
     <!--- @private -->
-    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2">
+    <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="0">
         <s:fill>
             <s:LinearGradient rotation="90">
-                <s:GradientEntry color="0x6692D0"
-                                 color.over="0x282828"
-                                 color.down="0x040303"
+                <s:GradientEntry color="0x6fa3d3"
+                                 color.over="0x6287B3"
+                                 color.down="0x566FBA"
                                  alpha="1"/>
-                <s:GradientEntry color="0x5A78C5"
-                                 color.over="0x282828"
-                                 color.down="0x040303"
+                <s:GradientEntry color="0x5a71bf"
+                                 color.over="0x6287B3"
+                                 color.down="0x566FBA"
                                  alpha="1"/>
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
 
-    <!-- layer 3: fill lowlight -->
-    <!--- @private -->
-    <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2">
-        <s:fill>
-            <s:LinearGradient rotation="270">
-                <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627"/>
-                <s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099"/>
-                <s:GradientEntry color="0x000000" ratio="0.48001" alpha="0"/>
-            </s:LinearGradient>
-        </s:fill>
-    </s:Rect>
+
 
 
     <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
     <!--- @private -->
-    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="5" alpha="0.5">
+    <s:Rect id="border" left="0" right="0" top="0" bottom="0" width="69" height="20" radiusX="0" alpha="0.5">
         <s:stroke>
             <s:LinearGradientStroke rotation="90" weight="1">
-                <s:GradientEntry color="0x000000"
+                <s:GradientEntry color="0xFFFFFF"
                                  alpha="0.5625"
                                  alpha.down="0.6375"/>
                 <s:GradientEntry color="0x000000"
@@ -131,7 +106,10 @@
     <!-- layer 8: text -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
     <s:Label id="labelDisplay"
-             textAlign="center"
+             textAlign="right"
+             color="white"
+             fontSize="10"
+             paddingTop="-2"
              maxDisplayedLines="1"
              horizontalCenter="0" verticalCenter="1" verticalAlign="middle"
              left="10" right="10" top="2" bottom="2">
