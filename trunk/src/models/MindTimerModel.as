@@ -7,6 +7,8 @@ import flash.display.DisplayObject;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
+import mx.collections.ArrayList;
+
 import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
 import mx.resources.IResourceManager;
@@ -78,7 +80,7 @@ public class MindTimerModel {
             playSound = settings.playSound;
             showPomodoroStatistic = settings.showPomodoroStatistic;
             trayIt.setPomodoroStatistic(settings.showPomodoroStatistic);
-            timeTemplateBar.dataProvider = settings.templates;
+            timeTemplateBar.dataProvider = new ArrayList(settings.templates);
             doLocalization(settings.language);
             activateResetDay();
         }
@@ -145,7 +147,7 @@ public class MindTimerModel {
     }
 
     public function updateTimeTemplates():void {
-        timeTemplateBar.dataProvider = settings.templates;
+        timeTemplateBar.dataProvider = new ArrayList(settings.templates);
     }
 
     private function timerCompleteHandler(e:TimerTickEvent):void {
