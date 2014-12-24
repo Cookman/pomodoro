@@ -31,7 +31,7 @@
         ]]>
 	</fx:Script>
 
-    <mx:HRule width="100%" alpha="0.5"/>
+    <mx:HRule width="100%" alpha="0"/>
     <s:HGroup horizontalAlign="center" verticalAlign="middle" gap="1" width="100%">
 
         <s:Button id="startBtn" width="70" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}" cornerRadius="0" skinClass="views.skins.AdvancedButtonSkin"
@@ -42,6 +42,6 @@
         <s:Button id="resetBtn" width="70"  height="25"  label="{resourceManager.getString('resources', 'RESET')}" cornerRadius="0"  skinClass="views.skins.AdvancedButtonSkin"
                   click="resetBtn_clickHandler(event)" icon="{IconReset}"/>
     </s:HGroup>
-    <mx:HRule width="100%" alpha="0.5"/>
+    <mx:HRule width="100%" alpha="0"/>
 
 </s:VGroup>

@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
                        xmlns:view="views.*"
-                       width="215" height="85"
-                       initialize="onInit(event)" backgroundAlpha="0"
+                       width="220" height="115"
+                       initialize="onInit(event)" backgroundAlpha="1"
                        showStatusBar="false" alwaysInFront="true"
                        title="{resourceManager.getString('resources', 'POMODORO_TITLE')}"
                        titleIcon="@Embed('assets/pomodoro16.png')" backgroundFrameRate="-1"
                        skinClass="views.skins.AppBackgroundSkin"
-                       creationComplete="windowedapplication1_creationCompleteHandler(event)">
+                       creationComplete="windowedapplication1_creationCompleteHandler(event)"
+                       mouseDown="mouseDownHandler1(event)" mouseUp="mouseUpHandler1(event)">
 
 
     <fx:Style source="Style.css"/>
@@ -43,6 +44,14 @@
             model.loadSettings();
         }
 
+        private function mouseDownHandler1(event:Event):void {
+            this.stage.nativeWindow.startMove();
+        }
+
+        private function mouseUpHandler1(event:Event):void {
+            this.stage.nativeWindow.restore();
+        }
+
         private function minimizeListener(e:NativeWindowDisplayStateEvent):void {
             if (!minimized) {
                 model.trayIt.hide();
@@ -59,9 +68,11 @@
         }
         ]]></fx:Script>
 
+
     <view:TrayManager id="trayIt"/>
 
-    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" gap="5" top="-5">
+
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" gap="5" top="2" bottom="2">
         <s:Group>
             <s:VGroup visible="{model.timerStatus}" horizontalAlign="center" verticalAlign="middle" paddingTop="3">
                 <s:HGroup horizontalAlign="center" verticalAlign="middle">
@@ -83,4 +94,5 @@
 
         <view:Toolbar width="100%"/>
     </s:VGroup>
+
 </s:WindowedApplication>
