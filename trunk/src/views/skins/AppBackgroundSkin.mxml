@@ -1,31 +1,150 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- containers\application\mySkins\MyAppBackgroundSkin.mxml -->
-<s:Skin xmlns:fx="http://ns.adobe.com/mxml/2009"
-        xmlns:mx="library://ns.adobe.com/flex/mx"
-        xmlns:s="library://ns.adobe.com/flex/spark">
+<!--
 
-  <fx:Metadata>
-    [HostComponent("spark.components.Application")]
-  </fx:Metadata>
+ ADOBE SYSTEMS INCORPORATED
+ Copyright 2009 Adobe Systems Incorporated
+ All Rights Reserved.
 
-  <s:states>
-    <s:State name="normal" />
-    <s:State name="disabled" />
-    <mx:State name="normalAndInactive"/>
-  </s:states>
+ NOTICE: Adobe permits you to use, modify, and distribute this file
+ in accordance with the terms of the license agreement accompanying it.
 
-  <!-- Define a gradient fill for the background of the Application container. -->
-  <s:Rect id="backgroundRect" left="0" right="0" top="0" bottom="0">
-    <s:fill>
-      <s:RadialGradient>
+-->
+<!--- A skin class for the Spark WindowedApplication component.
+ This class defines the Flex chrome which includes a border, status bar,
+ gripper button, title bar, and title bar buttons.
 
-        <s:entries>
-          <s:GradientEntry color="0x6fa3d3" ratio="0.00" alpha="0.5"/>
-          <s:GradientEntry color="0x5a71bf" ratio="0.5" alpha="0.5"/>
-        </s:entries>
-      </s:RadialGradient>
-    </s:fill>
-  </s:Rect>
+ <p>You can either use  system chrome, the FlexChromSkin class, or
+ the WindowedApplicationSkin class to define the appearance of
+ the WindowedApplication and Window containers.
+ To use the FlexChromSkin class with the WindowedApplication container,
+ set <code>systemChrome</code> to "none"
+ in the application's .xml file, and set the <code>skinClass</code> style to
+ spark.skins.spark.FlexChromSkin.
+ To use the FlexChromSkin class with the Window container,
+ set the <code>Window.systemChrome</code> property to "none",
+ and set the <code>skinClass</code> style to
+ spark.skins.spark.FlexChromSkin.</p>
 
-  <s:Group id="contentGroup" left="0" right="0" top="0" bottom="0" />
-</s:Skin>
+ @see spark.components.WindowedApplication
+
+ @langversion 3.0
+ @playerversion Flash 10
+ @playerversion AIR 1.5
+ @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+             xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledGroup="0.5">
+
+    <fx:Metadata>
+        /**
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("Object")]
+    </fx:Metadata>
+
+    <fx:Script fb:purpose="styling">
+        /*  Define the skin elements that should not be colorized.
+         *  For WindowedApplication, border and status bar background are colorized,
+         *  but the content area and status text are not.
+         *  Exclude the titleBar because it is a SparkSkin and we
+         *  don't want to colorize it twice.
+         *
+         * @langversion 3.0
+         * @playerversion Flash 10
+         * @playerversion AIR 1.5
+         * @productversion Flex 4
+         */
+        static private const exclusions:Array = ["backgroundRect", "contentGroup", "titleBar",
+            "titleBarBackgroundRect", "statusText",
+            "borderBgFill"];
+
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {
+            return exclusions;
+        }
+
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+
+
+    </fx:Script>
+
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled" stateGroups="disabledGroup"/>
+        <s:State name="normalAndInactive" stateGroups="inactiveGroup"/>
+        <s:State name="disabledAndInactive" stateGroups="disabledGroup, inactiveGroup"/>
+    </s:states>
+
+    <!-- layer 1: background fill -->
+    <!--- Defines the background color of the skin. -->
+
+
+    <!-- layer 2: titlebar + content + status bar -->
+    <s:Group left="1" right="1" top="1" bottom="1" minHeight="24" minWidth="0">
+        <s:layout>
+            <s:VerticalLayout gap="-5"/>
+        </s:layout>
+
+        <s:HGroup width="100%" horizontalAlign="right" gap="0">
+            <s:TitleBar id="titleBar" width="100%" minHeight="24" alpha.inactiveGroup="0.5"
+                        skinClass="views.skins.TitleBarSkin"/>
+        </s:HGroup>
+        <!-- content -->
+        <!--- @copy spark.components.SkinnableContainer#contentGroup -->
+        <s:Group width="100%">
+            <s:Group id="borderBgFill" left="0" right="0" top="0" bottom="0" alpha="0">
+                <s:Rect left="0" right="0" top="0" bottom="0" topLeftRadiusX="5" topLeftRadiusY="5" topRightRadiusX="0"
+                        topRightRadiusY="0" bottomLeftRadiusX="5" bottomLeftRadiusY="5" bottomRightRadiusX="5"
+                        bottomRightRadiusY="5">
+                    <s:stroke>
+                        <s:SolidColorStroke alpha="0.5" weight="1" color="0xFFFFFF"/>
+                    </s:stroke>
+                </s:Rect>
+            </s:Group>
+            <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="1" radiusX="5" radiusY="5">
+                <s:fill>
+                    <!--- @private -->
+                    <s:RadialGradient>
+                        <s:GradientEntry color="0x6fa3d3" ratio="0.00" alpha="1"/>
+                        <s:GradientEntry color="0x5a71bf" ratio="0.5" alpha="1"/>
+                    </s:RadialGradient>
+                </s:fill>
+            </s:Rect>
+            <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
+
+        </s:Group>
+
+
+        <!-- title bar to display when not using 'systemChrome' -->
+        <!--- @copy spark.components.WindowedApplication#titleBar -->
+
+
+    </s:Group>
+
+    <!-- layer 4: border -->
+
+    <!-- background of border for when it is alpha=0.5 -->
+    <!--- Defines the background color of the border. -->
+    <!-- <s:Group id="borderBgFill" left="0" right="0" top="0" bottom="0">
+         <s:Rect left="0" right="0" top="0" bottom="0">
+             <s:stroke>
+                 <s:SolidColorStroke weight="5" color="0xFFFFFF"/>
+             </s:stroke>
+         </s:Rect>
+     </s:Group>-->
+
+    <!-- the border -->
+    <s:Rect left="0" right="0" top="0" bottom="0">
+        <s:stroke>
+            <s:SolidColorStroke alpha.inactiveGroup="0.5" weight="1" color="0xFFFFFF"/>
+        </s:stroke>
+    </s:Rect>
+
+</s:SparkSkin>
