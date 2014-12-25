@@ -12,13 +12,13 @@
     font-Size: 14;
     fontWeight: bold;
     fontFamily: 'Times new roman';
-
+    color: white;
 }
 
 .timeStyle {
     font-Size: 24;
     fontWeight: bold;
-    color: white;
+    color: #d3d3d3;
     fontFamily: 'Times new roman';
     fontAntiAliasType: advanced;
 }

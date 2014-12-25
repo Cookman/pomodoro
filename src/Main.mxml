@@ -10,7 +10,6 @@
                        creationComplete="windowedapplication1_creationCompleteHandler(event)"
                        mouseDown="mouseDownHandler1(event)" mouseUp="mouseUpHandler1(event)">
 
-
     <fx:Style source="Style.css"/>
     <fx:Metadata>
         [ResourceBundle("resources")]
@@ -94,5 +93,4 @@
 
         <view:Toolbar width="100%"/>
     </s:VGroup>
-
 </s:WindowedApplication>

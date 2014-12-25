@@ -23,6 +23,7 @@ public class TimeSelectBar extends ButtonBar {
 
     public function reset():void {
         selectedIndex = -1;
+        
     }
 
     private function itemClickHandler(event:Event):void {

@@ -38,8 +38,9 @@
     </fx:Metadata>
 
   <fx:Script fb:purpose="styling">
+      import views.skins.SkinUtil;
 
-    /* Define the skin elements that should not be colorized.
+      /* Define the skin elements that should not be colorized.
      For toggle button, the graphics are colorized but the label is not. */
     static private const exclusions:Array = ["labelDisplay"];
 
@@ -98,18 +99,20 @@
     <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
       <s:fill>
         <s:LinearGradient rotation="90">
-          <s:GradientEntry color="0x6692D0"
+          <s:GradientEntry color="{SkinUtil.gradient1}"
                            color.selectedUpStates="0xBBBDBD"
                            color.overStates="0x282828"
                            color.downStates="0x040303"
                            alpha="0.85"
+
                            alpha.overAndSelected="1" />
-          <s:GradientEntry color="0x5A78C5"
+          <s:GradientEntry color="{SkinUtil.gradient2}"
                            color.selectedUpStates="0x9FA0A1"
                            color.over="0x282828"
                            color.overAndSelected="0x8E8F90"
                            color.downStates="0x040303"
                            alpha="0.85"
+
                            alpha.overAndSelected="1" />
         </s:LinearGradient>
       </s:fill>

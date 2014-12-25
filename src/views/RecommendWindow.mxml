@@ -16,7 +16,7 @@
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
         private var count:int;
-        private var timeValue:int;
+        private var timeValue:int=5;
 
         protected function creationCompleted(e:Event):void {
             PopUpManager.centerPopUp(this);
@@ -45,8 +45,6 @@
 
         protected function clickHandler(e:Event):void {
             if (e.currentTarget == yesButton) {
-                var timeValue:int = 5;
-
                 var time:TimeVO = new TimeVO();
                 time.minutes = timeValue;
                 model.time = time;
