@@ -115,7 +115,7 @@ component is defined by the NumericStepperTextInputSkin class.
            @copy spark.components.Spinner#incrementButton
            @see spark.skins.spark.NumericStepperIncrementButtonSkin -->
     <s:Button id="incrementButton" right="0" top="0" height="50%" tabEnabled="false" 
-              skinClass="spark.skins.spark.NumericStepperIncrementButtonSkin" />
+              skinClass="spark.skins.spark.NumericStepperIncrementButtonSkin"    />
               
     <!--- The default class is NumericStepperDecrementButtonSkin.
             @copy spark.components.Spinner#decrementButton

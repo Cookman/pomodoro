@@ -8,19 +8,14 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 
 import mx.collections.ArrayList;
-
 import mx.core.FlexGlobals;
 import mx.managers.PopUpManager;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
-import views.AlertWindow;
-import views.TimeSelectBar;
-import views.TrayManager;
+import views.*;
 
-import vo.SettingsVO;
-import vo.TimeVO;
-import vo.TimerStatuses;
+import vo.*;
 
 [Bindable]
 public class MindTimerModel {
@@ -86,7 +81,6 @@ public class MindTimerModel {
         }
     }
 
-
     private var currentDate:Date;
 
     public function activateResetDay():void {
@@ -143,6 +137,7 @@ public class MindTimerModel {
         timerStatus = TimerStatuses.STOPED;
         timerInstance.stopTimer();
         buttonLabel = resourceManager.getString('resources', 'START');
+        timeTemplateBar.reset();
         soundModel.stopSound();
     }
 

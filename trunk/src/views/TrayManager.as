@@ -7,6 +7,9 @@ import flash.events.*;
 import models.LocalStorage;
 import models.MindTimerModel;
 
+import mx.controls.Alert;
+import mx.events.FlexEvent;
+
 import spark.components.Group;
 
 public class TrayManager extends Group {
