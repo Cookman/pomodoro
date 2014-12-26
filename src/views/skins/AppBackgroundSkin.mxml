@@ -82,20 +82,16 @@
         <s:State name="disabledAndInactive" stateGroups="disabledGroup, inactiveGroup"/>
     </s:states>
 
-    <!-- layer 1: background fill -->
-    <!--- Defines the background color of the skin. -->
-
-
     <!-- layer 2: titlebar + content + status bar -->
     <s:Group left="1" right="1" top="1" bottom="1" minHeight="24" minWidth="0">
         <s:layout>
             <s:VerticalLayout gap="-5"/>
         </s:layout>
 
-        <s:HGroup width="100%" horizontalAlign="right" gap="0">
+
             <s:TitleBar id="titleBar" width="100%" minHeight="24"
                         skinClass="views.skins.TitleBarSkin"/>
-        </s:HGroup>
+
         <!-- content -->
         <!--- @copy spark.components.SkinnableContainer#contentGroup -->
         <s:Group width="100%">
@@ -111,14 +107,11 @@
             <s:Rect id="backgroundRect" left="1" right="1" top="1" bottom="1">
                 <s:fill>
                     <!--- @private -->
-                    <s:SolidColor color="0x2c2c38"  alpha="1"/>
+                    <s:SolidColor color="0x262626" alpha="1"/>
                 </s:fill>
             </s:Rect>
             <s:Group id="contentGroup" width="100%" height="100%" minHeight="0" minWidth="0"/>
-
         </s:Group>
-
-
         <!-- title bar to display when not using 'systemChrome' -->
         <!--- @copy spark.components.WindowedApplication#titleBar -->
 
@@ -130,17 +123,23 @@
     <!-- background of border for when it is alpha=0.5 -->
     <!--- Defines the background color of the border. -->
 
-         <s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
-             <s:stroke>
-                 <s:SolidColorStroke weight="2" color="0xd3d3d3"/>
-             </s:stroke>
-         </s:Rect>
+    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="0" radiusY="0">
+        <s:stroke>
+            <s:SolidColorStroke weight="2" color="0x363636"/>
+        </s:stroke>
+    </s:Rect>
 
 
     <!-- the border -->
-    <s:Rect left="0" right="0" top="0" bottom="0" radiusX="2" radiusY="2">
+    <s:Rect left="1" right="1" top="1" bottom="1" radiusX="2" radiusY="2">
         <s:stroke>
-            <s:SolidColorStroke  weight="0.5" color="0x5d5e60"/>
+            <s:SolidColorStroke weight="1" color="0x535353"/>
+        </s:stroke>
+    </s:Rect>
+
+    <s:Rect left="1" right="1" top="1" bottom="1" width="100%" height="24" maxHeight="24">
+        <s:stroke>
+            <s:SolidColorStroke weight="2" color="0x535353"/>
         </s:stroke>
     </s:Rect>
 

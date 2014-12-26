@@ -166,6 +166,7 @@ public class MindTimerModel {
         } else {
             soundModel.stopSound();
         }
+        timeTemplateBar.reset();
     }
 
     private function timerTickHandler(e:TimerTickEvent):void {
