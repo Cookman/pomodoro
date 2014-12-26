@@ -82,12 +82,12 @@
                  text="{_lblText}"/>
         <s:TextInput id="dataTI" width="{_tiWidth}"
                      editable="{_tiEditable}" maxChars="2" restrict="0-9" skinClass="views.skins.TISkinClass"
-                     text="{_tiText}"
+                     text="{_tiText}" focusAlpha="0" color="white"  contentBackgroundColor="0x3a3a3a"
                      selectable="false"
                      change="dataTI_changeHandler(event)" mouseWheel="dataTI_mouseWheelHandler(event)"/>
-        <s:NumericStepper id="valueStepper" height="22"
+        <s:NumericStepper id="valueStepper" height="22" borderAlpha="0"
                           allowValueWrap="false" maxChars="2" maximum="{TimeVO.timeMax}" minimum="{TimeVO.timeMin}"
-                          stepSize="1"
-                          skinClass="views.skins.NumericStepperSkin" change="numericstepper1_changeHandler(event)"/>
+                          stepSize="1" focusAlpha="0"
+                          skinClass="views.skins.numericstepper.NumericStepperSkin" change="numericstepper1_changeHandler(event)"/>
     </s:HGroup>
 </s:Group>

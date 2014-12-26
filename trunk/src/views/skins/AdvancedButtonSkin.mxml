@@ -74,12 +74,12 @@
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="{SkinUtil.gradient1}"
-                                 color.over="0x6287B3"
-                                 color.down="0x566FBA"
+                                 color.over="0x282828"
+                                 color.down="0x393939"
                                  alpha="1"/>
                 <s:GradientEntry color="{SkinUtil.gradient2}"
-                                 color.over="0x6287B3"
-                                 color.down="0x566FBA"
+                                 color.over="0x282828"
+                                 color.down="0x393939"
                                  alpha="1"/>
             </s:LinearGradient>
         </s:fill>

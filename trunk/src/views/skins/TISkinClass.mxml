@@ -214,7 +214,7 @@
     
     <!-- border --> 
     <!--- @private -->
-    <s:Rect left="0" right="0" top="0" bottom="0" id="border" radiusX="5" radiusY="5" 
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border" radiusX="2" radiusY="2"
 			bottomRightRadiusX="0" bottomRightRadiusY="0" topRightRadiusX="0" topRightRadiusY="0">
         <s:stroke>     
             <!--- @private -->
@@ -224,7 +224,7 @@
 
     <!-- fill -->
     <!--- Defines the appearance of the TextInput component's background. -->
-    <s:Rect id="background" left="1" right="1" top="1" bottom="1"  radiusX="5" radiusY="5" >
+    <s:Rect id="background" left="1" right="1" top="1" bottom="1"  radiusX="2" radiusY="2" >
         <s:fill>
             <!--- @private Defines the background fill color. -->
             <s:SolidColor id="bgFill" color="0xFFFFFF"  />
@@ -233,7 +233,7 @@
     
     <!-- shadow -->
     <!--- @private -->
-    <s:Rect left="1" top="1" right="1" height="1" id="shadow" radiusX="5" radiusY="5">
+    <s:Rect left="1" top="1" right="1" height="1" id="shadow" radiusX="2" radiusY="2">
         <s:fill>
             <s:SolidColor color="0x000000" alpha="0.12" />
         </s:fill>

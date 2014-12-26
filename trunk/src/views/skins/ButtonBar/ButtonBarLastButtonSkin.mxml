@@ -98,13 +98,13 @@
 
     <!-- layer 2: fill -->
     <!--- @private -->
-      <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topLeftRadiusX="2" bottomLeftRadiusX="2">
+      <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topRightRadiusX="2" bottomRightRadiusX="2">
           <s:fill>
               <s:LinearGradient rotation="90">
                   <s:GradientEntry color="{SkinUtil.gradient1}"
                                    color.selectedUpStates="0xBBBDBD"
                                    color.overStates="0x282828"
-                                   color.downStates="0x040303"
+                                   color.downStates="0x393939"
                                    alpha="0.85"
 
                                    alpha.overAndSelected="1" />
@@ -112,7 +112,7 @@
                                    color.selectedUpStates="0x9FA0A1"
                                    color.over="0x282828"
                                    color.overAndSelected="0x8E8F90"
-                                   color.downStates="0x040303"
+                                   color.downStates="0x393939"
                                    alpha="0.85"
 
                                    alpha.overAndSelected="1" />
@@ -127,14 +127,12 @@
     <s:Rect id="border" left="0" right="1" top="1" bottom="1" topRightRadiusX="2" bottomRightRadiusX="2">
       <s:stroke>
         <s:LinearGradientStroke rotation="90" weight="1">
-          <s:GradientEntry color="0xFFFFFF"
-                           alpha="0.5625"
-                           alpha.down="0.6375"
-                           alpha.selectedStates="0.6375" />
-          <s:GradientEntry color="0xFFFFFF"
-                           alpha="0.75"
-                           alpha.down="0.85"
-                           alpha.selectedStates="0.85" />
+            <s:GradientEntry color="0xFFFFFF"
+                             alpha="0.5625"
+                             alpha.down="0.6375"/>
+            <s:GradientEntry color="0x000000"
+                             alpha="0.75"
+                             alpha.down="0.85"/>
         </s:LinearGradientStroke>
       </s:stroke>
     </s:Rect>
