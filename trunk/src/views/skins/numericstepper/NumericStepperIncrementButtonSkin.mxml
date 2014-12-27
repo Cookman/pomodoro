@@ -98,16 +98,14 @@
       <s:fill>
         <s:LinearGradient rotation="90">
           <s:GradientEntry color="{SkinUtil.gradient1}"
-                           color.over="0x282828"
-                           color.down="0x393939" />
+                           color.over="{SkinUtil.overColor}"
+                           color.down="{SkinUtil.downColor}" />
           <s:GradientEntry color="{SkinUtil.gradient2}"
-                           color.over="0x282828"
-                           color.down="0x393939" />
+                           color.over="{SkinUtil.overColor}"
+                           color.down="{SkinUtil.downColor}" />
         </s:LinearGradient>
       </s:fill>
     </s:Rect>
-
-
   </s:Group>
 
   <!-- arrow -->
@@ -116,15 +114,20 @@
           data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
     <s:fill>
         <s:LinearGradient>
-            <s:GradientEntry
-            id="arrowFill" color="red" alpha="1" />
-
+            <s:GradientEntry id="arrowFill" color="white" alpha="1" />
         </s:LinearGradient>
-      <!--- @private
-
-     Defines the up arrow's fill. The default color is 0x000000. The default alpha is .8. -->
 
     </s:fill>
   </s:Path>
+
+    <s:Path horizontalCenter="0" verticalCenter="0" id="arrow1"
+            data="M 3.0 0.0 L 3.0 1.0 L 4.0 1.0 L 4.0 2.0 L 5.0 2.0 L 5.0 3.0 L 0.0 3.0 L 0.0 2.0 L 1.0 2.0 L 1.0 1.0 L 2.0 1.0 L 2.0 0.0 L 3.0 0.0">
+        <s:fill>
+            <s:LinearGradient>
+                <s:GradientEntry id="arrowFill1" color="white" alpha="1" />
+            </s:LinearGradient>
+
+        </s:fill>
+    </s:Path>
 
 </s:SparkSkin>

@@ -103,7 +103,7 @@
     <!-- layer 8: text -->
     <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
     <s:Label id="labelDisplay"
-             textAlign="right"
+             textAlign="center"
              color="white"
              fontSize="10"
              paddingTop="-2"

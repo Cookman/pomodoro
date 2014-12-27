@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<!--
-
-    ADOBE SYSTEMS INCORPORATED
-    Copyright 2008 Adobe Systems Incorporated
-    All Rights Reserved.
-
-    NOTICE: Adobe permits you to use, modify, and distribute this file
-    in accordance with the terms of the license agreement accompanying it.
-
--->
-
 <!--- The default skin class for the middle buttons in a Spark ButtonBar component.
 
  @see spark.components.ButtonBar
@@ -27,97 +16,95 @@
                    minHeight="21" width="45"
                    alpha.disabled="0.5">
 
-  <!-- host component -->
-  <fx:Metadata>
+    <!-- host component -->
+    <fx:Metadata>
         <![CDATA[
-    /**
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
-    [HostComponent("spark.components.ButtonBarButton")]
-    ]]>
+        /**
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.ButtonBarButton")]
+        ]]>
     </fx:Metadata>
 
-  <fx:Script fb:purpose="styling">
-      import views.skins.SkinUtil;
+    <fx:Script fb:purpose="styling">
+        import views.skins.SkinUtil;
 
-      /* Define the skin elements that should not be colorized.
-     For toggle button, the graphics are colorized but the label is not. */
-    static private const exclusions:Array = ["labelDisplay"];
+        /* Define the skin elements that should not be colorized.
+         For toggle button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelDisplay"];
 
-    /**
-     * @private
-     */
-    override protected function initializationComplete():void
-    {
-      useChromeColor = true;
-      super.initializationComplete();
-    }
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
 
-    /**
-     * @private
-     */
-    override public function get colorizeExclusions():Array {return exclusions;}
-  </fx:Script>
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {
+            return exclusions;
+        }
+    </fx:Script>
 
-  <!-- states -->
-  <s:states>
-    <s:State name="up" />
-    <s:State name="over" stateGroups="overStates" />
-    <s:State name="down" stateGroups="downStates" />
-    <s:State name="disabled" stateGroups="disabledStates" />
-    <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
-    <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
-    <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
-    <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
-  </s:states>
+    <!-- states -->
+    <s:states>
+        <s:State name="up"/>
+        <s:State name="over" stateGroups="overStates"/>
+        <s:State name="down" stateGroups="downStates"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates"/>
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates"/>
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates"/>
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates"/>
+    </s:states>
 
-  <!-- layer 2: fill -->
+    <!-- layer 2: fill -->
     <s:Rect id="fill" left="2" right="1" top="2" bottom="2">
         <s:fill>
             <s:LinearGradient rotation="90">
                 <s:GradientEntry color="{SkinUtil.gradient1}"
-                                 color.selectedUpStates="0xBBBDBD"
-                                 color.overStates="0x282828"
-                                 color.downStates="0x393939"
+                                 color.selectedUpStates="{SkinUtil.selectedColor}"
+                                 color.overStates="{SkinUtil.overColor}"
+                                 color.downStates="{SkinUtil.downColor}"
                                  alpha="0.85"
-
-                                 alpha.overAndSelected="1" />
+                                 alpha.overAndSelected="1"/>
                 <s:GradientEntry color="{SkinUtil.gradient2}"
-                                 color.selectedUpStates="0x9FA0A1"
-                                 color.over="0x282828"
+                                 color.selectedUpStates="{SkinUtil.selectedUpButtonBarColor}"
+                                 color.over="{SkinUtil.overColor}"
                                  color.overAndSelected="0x8E8F90"
-                                 color.downStates="0x393939"
+                                 color.downStates="{SkinUtil.downColor}"
                                  alpha="0.85"
-
-                                 alpha.overAndSelected="1" />
+                                 alpha.overAndSelected="1"/>
             </s:LinearGradient>
         </s:fill>
     </s:Rect>
 
+    <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+    <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20">
+        <s:stroke>
+            <s:LinearGradientStroke rotation="90" weight="1">
+                <s:GradientEntry color="0xFFFFFF"
+                                 alpha="0.5625"
+                                 alpha.down="0.6375"/>
+                <s:GradientEntry color="0x000000"
+                                 alpha="0.75"
+                                 alpha.down="0.85"/>
+            </s:LinearGradientStroke>
+        </s:stroke>
+    </s:Rect>
 
-  <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
-  <s:Rect left="0" right="0" top="0" bottom="0" width="69" height="20">
-    <s:stroke>
-      <s:LinearGradientStroke rotation="90" weight="1">
-          <s:GradientEntry color="0xFFFFFF"
-                           alpha="0.5625"
-                           alpha.down="0.6375"/>
-          <s:GradientEntry color="0x000000"
-                           alpha="0.75"
-                           alpha.down="0.85"/>
-      </s:LinearGradientStroke>
-    </s:stroke>
-  </s:Rect>
-
-  <!-- layer 8: text -->
-  <!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
-  <s:Label id="labelDisplay"
-           color="white"
-           textAlign="center"
-           verticalAlign="middle"
-           maxDisplayedLines="1"
-           horizontalCenter="0" verticalCenter="1"
-           left="10" right="10" top="2" bottom="2">
-  </s:Label>
+    <!-- layer 8: text -->
+    <!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
+    <s:Label id="labelDisplay"
+             color="white"
+             textAlign="center"
+             verticalAlign="middle"
+             maxDisplayedLines="1"
+             horizontalCenter="0" verticalCenter="1"
+             left="10" right="10" top="2" bottom="2">
+    </s:Label>
 
 </s:SparkButtonSkin>
