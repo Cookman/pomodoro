@@ -21,11 +21,11 @@ public class SoundModel {
 
     public static const mp3SoundName:String = "dingdong.mp3"
 
-    var mp3File:Sound;
+    private var mp3File:Sound;
 
     public function playSound(useMp3:Boolean):void {
         if (useMp3) {
-            var audiofile = File.applicationStorageDirectory.resolvePath(mp3SoundName);
+            var audiofile:File = File.applicationStorageDirectory.resolvePath(mp3SoundName);
             mp3File = new Sound(new URLRequest(audiofile.nativePath));
             channel = mp3File.play();
         }

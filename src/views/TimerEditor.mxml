@@ -21,12 +21,12 @@
         ]]>
 	</fx:Script>
 
-    <s:HGroup>
-        <views:LabeledTextInput id="hoursLTI" labelText="H:" textInputText="{model.time.hours}"
+    <s:HGroup width="100%" paddingLeft="5" paddingRight="5" >
+        <views:LabeledTextInput id="hoursLTI" labelText="H:" textInputText="{model.time.hours}"  width="100%"
                                 editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
-        <views:LabeledTextInput id="minutesLTI" labelText="M:" textInputText="{model.time.minutes}"
+        <views:LabeledTextInput id="minutesLTI" labelText="M:" textInputText="{model.time.minutes}"  width="100%"
                                 editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
-        <views:LabeledTextInput id="secondsLTI" labelText="S:" textInputText="{model.time.seconds}"
+        <views:LabeledTextInput id="secondsLTI" labelText="S:" textInputText="{model.time.seconds}" width="100%"
                                 editable="{model.timerStatus}" textInputChanged="textInputChangedHandler(event)"/>
     </s:HGroup>
 </s:VGroup>

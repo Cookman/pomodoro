@@ -19,6 +19,7 @@ public class TimeSelectBar extends ButtonBar {
         super();
         reset();
         this.addEventListener(Event.CHANGE, itemClickHandler);
+
     }
 
     public function reset():void {

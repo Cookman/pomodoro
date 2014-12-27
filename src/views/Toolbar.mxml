@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:VGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:HGroup xmlns:fx="http://ns.adobe.com/mxml/2009"
           xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="mx.controls.*"
-          gap="0" width="100%">
+          gap="0" width="100%"  paddingLeft="5" paddingRight="5"
+          >
     <fx:Script>
 		<![CDATA[
         import models.MindTimerModel;
@@ -31,17 +32,12 @@
         ]]>
 	</fx:Script>
 
-    <mx:HRule width="100%" alpha="0"/>
-    <s:HGroup horizontalAlign="center" verticalAlign="middle" gap="1" width="100%">
-
-        <s:Button id="startBtn" width="70" height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}" cornerRadius="0" skinClass="views.skins.AdvancedButtonSkin"
+        <s:Button id="startBtn"  height="25" label="{model.buttonLabel}" enabled="{(model.time.notNull)}" cornerRadius="0" skinClass="views.skins.AdvancedButtonSkin"
                   click="startBtn_clickHandler(event)" icon="{IconPlay}"/>
-        <s:Button id="stopBtn" width="70"  height="25"  label="{resourceManager.getString('resources', 'STOP')}" cornerRadius="0"  skinClass="views.skins.AdvancedButtonSkin"
+        <s:Button id="stopBtn"  height="25"  label="{resourceManager.getString('resources', 'STOP')}" cornerRadius="0"  skinClass="views.skins.AdvancedButtonSkin"
                   enabled="{model.timerStatus==TimerStatuses.STARTED}"
                   click="stopBtn_clickHandler(event)" icon="{IconPause}"/>
-        <s:Button id="resetBtn" width="70"  height="25"  label="{resourceManager.getString('resources', 'RESET')}" cornerRadius="0"  skinClass="views.skins.AdvancedButtonSkin"
+        <s:Button id="resetBtn"  height="25"  label="{resourceManager.getString('resources', 'RESET')}" cornerRadius="0"  skinClass="views.skins.AdvancedButtonSkin"
                   click="resetBtn_clickHandler(event)" icon="{IconReset}"/>
-    </s:HGroup>
-    <mx:HRule width="100%" alpha="0"/>
 
-</s:VGroup>
+</s:HGroup>

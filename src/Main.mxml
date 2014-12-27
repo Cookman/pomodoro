@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
-                       xmlns:view="views.*" xmlns:mx="library://ns.adobe.com/flex/mx"
-                       width="220" height="115"
+                       xmlns:view="views.*"
+                       width="222" height="115"
                        initialize="onInit(event)" backgroundAlpha="1"
                        showStatusBar="false" alwaysInFront="true"
                        title="{resourceManager.getString('resources', 'POMODORO_TITLE')}"
@@ -35,7 +35,6 @@
         }
 
         protected function windowedapplication1_creationCompleteHandler(event:FlexEvent):void {
-
             trayIt.initializeManager();
             model.trayIt = trayIt;
             model.timeTemplateBar = timeTemplateBar;
@@ -66,31 +65,29 @@
             LocalStorage.saveSettings(model.settings);
         }
         ]]></fx:Script>
-
-
     <view:TrayManager id="trayIt"/>
 
-
-    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" gap="5" top="4" bottom="2">
-        <s:Group>
-            <s:VGroup visible="{model.timerStatus}" horizontalAlign="center" verticalAlign="middle" paddingTop="3">
-                <s:HGroup horizontalAlign="center" verticalAlign="middle">
+    <s:VGroup width="220" height="100%" gap="5" top="4" bottom="2">
+        <s:Group width="100%">
+            <s:VGroup width="100%" visible="{model.timerStatus}" horizontalAlign="center" verticalAlign="middle"
+                      paddingTop="3">
+                <s:HGroup horizontalAlign="center" verticalAlign="middle" width="100%" paddingLeft="5" paddingRight="5"
+                          gap="0">
                     <view:TimeSelectBar id="timeTemplateBar" width="100%" height="100%"
                                         skinClass="views.skins.ButtonBar.ButtonBarSkin"/>
-                    <s:ToggleButton id="playSoundButton" width="18" height="100%"
+                    <s:ToggleButton id="playSoundButton" minWidth="34" width="34" height="100%"
                                     skinClass="views.skins.ToggleButtonSkin"
                                     click="playSoundClickHandler(event)"
                                     change="{model.playSound=!model.playSound}"
                                     selected="{model.playSound}"/>
                 </s:HGroup>
-                <view:TimerEditor/>
+                <view:TimerEditor width="100%" paddingLeft="2" paddingRight="2"/>
             </s:VGroup>
             <s:HGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center"
                       visible="{!model.timerStatus}">
                 <view:TimerView/>
             </s:HGroup>
         </s:Group>
-
         <view:Toolbar width="100%"/>
     </s:VGroup>
 </s:WindowedApplication>

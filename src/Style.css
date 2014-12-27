@@ -2,6 +2,10 @@
 @namespace s "library://ns.adobe.com/flex/spark";
 @namespace mx "library://ns.adobe.com/flex/mx";
 
+.Label{
+    color: white;
+}
+
 .timerBorder {
     border-color: #000000;
     border-style: solid;
@@ -25,4 +29,13 @@
 
 .boxStyle{
     backgroundGradientColors: aqua #faebd7;
+}
+
+.dropdown{
+    color:white;
+}
+
+.list{
+    backgroundAlpha: 0;
+    backgroundColor: #000000;
 }

@@ -23,182 +23,128 @@
 <s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
                    xmlns:s="library://ns.adobe.com/flex/spark"
                    xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
-                   minWidth="21" minHeight="21"
+                   minHeight="21"
                    alpha.disabledStates="0.5">
 
-  <!-- host component -->
-  <fx:Metadata>
+    <!-- host component -->
+    <fx:Metadata>
     <![CDATA[
-    /**
-     * @copy spark.skins.spark.ApplicationSkin#hostComponent
-     */
-    [HostComponent("spark.components.ToggleButton")]
-    ]]>
+        /**
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("spark.components.ToggleButton")]
+        ]]>
     </fx:Metadata>
 
-  <fx:Script fb:purpose="styling">
-    /* Define the skin elements that should not be colorized.
-     For toggle button, the graphics are colorized but the label is not. */
-    static private const exclusions:Array = ["labelDisplay"];
-    [Embed(source="/assets/bell.png")]
-    private var IconBell:Class;
-    /**
-     * @private
-     */
-    override public function get colorizeExclusions():Array {return exclusions;}
+    <fx:Script fb:purpose="styling">
+        /* Define the skin elements that should not be colorized.
+         For toggle button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelDisplay"];
+        [Embed(source="/assets/bell.png")]
+        private var IconBell:Class;
 
-    /**
-     * @private
-     */
-    override protected function initializationComplete():void
-    {
-      useChromeColor = true;
-      super.initializationComplete();
-    }
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {
+            return exclusions;
+        }
 
-    /**
-     * @private
-     */
-    override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
-    {
-      var cr:Number = getStyle("cornerRadius");
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
 
-      if (cornerRadius != cr)
-      {
-        cornerRadius = cr;
-        fill.radiusX = cornerRadius;
-        lowlight.radiusX = cornerRadius;
-        highlight.radiusX = cornerRadius;
-      }
+        /**
+         * @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void {
+            var cr:Number = getStyle("cornerRadius");
 
-      if (highlightStroke) highlightStroke.radiusX = cornerRadius;
-      if (hldownstroke1) hldownstroke1.radiusX = cornerRadius;
-      if (hldownstroke2) hldownstroke2.radiusX = cornerRadius;
+            if (cornerRadius != cr) {
+                cornerRadius = cr;
+                fill.radiusX = cornerRadius;
+            }
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
 
-      super.updateDisplayList(unscaledWidth, unscaledHeight);
-    }
+        private var cornerRadius:Number = 2;
+    </fx:Script>
 
-    private var cornerRadius:Number = 2;
-  </fx:Script>
+    <!-- states -->
+    <s:states>
+        <s:State name="up"/>
+        <s:State name="over" stateGroups="overStates"/>
+        <s:State name="down" stateGroups="downStates"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates"/>
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates"/>
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates"/>
+        <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates"/>
+    </s:states>
 
-  <!-- states -->
-  <s:states>
-    <s:State name="up" />
-    <s:State name="over" stateGroups="overStates" />
-    <s:State name="down" stateGroups="downStates" />
-    <s:State name="disabled" stateGroups="disabledStates" />
-    <s:State name="upAndSelected" stateGroups="selectedStates, selectedUpStates" />
-    <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
-    <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
-    <s:State name="disabledAndSelected" stateGroups="selectedUpStates, disabledStates, selectedStates" />
-  </s:states>
+    <!-- layer 2: fill -->
+    <!--- @private -->
+    <s:Group left="0" right="-1" top="-1" bottom="-1">
 
-  <!-- layer 2: fill -->
-  <!--- @private -->
-  <s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="2" alpha="0">
-    <s:fill>
-      <s:LinearGradient rotation="90">
-        <s:GradientEntry color="0xFFFFFF"
-                         color.selectedUpStates="0xBBBDBD"
-                         color.overStates="0xBBBDBD"
-                         color.downStates="0xAAAAAA"
-                         alpha="0.85"
-                         alpha.overAndSelected="1"
-                />
-        <s:GradientEntry color="0xD8D8D8"
-                         color.selectedUpStates="0x9FA0A1"
-                         color.over="0x9FA0A1"
-                         color.overAndSelected="0x8E8F90"
-                         color.downStates="0x929496"
-                         alpha="0.85"
-                         alpha.overAndSelected="1" />
-      </s:LinearGradient>
-    </s:fill>
-  </s:Rect>
+        <!-- layer 2: fill -->
+        <!--- @private -->
+        <s:Rect id="fill" left="2" right="1" top="2" bottom="2" topRightRadiusX="2" bottomRightRadiusX="2">
+            <s:fill>
+                <s:LinearGradient rotation="90">
+                    <s:GradientEntry color="{SkinUtil.gradient1}"
+                                     color.selectedUpStates="{SkinUtil.selectedColor}"
+                                     color.overStates="{SkinUtil.overColor}"
+                                     color.downStates="{SkinUtil.downColor}"
+                                     alpha="0.85"
+                                     alpha.overAndSelected="1"/>
+                    <s:GradientEntry color="{SkinUtil.gradient2}"
+                                     color.selectedUpStates="{SkinUtil.selectedColor}"
+                                     color.over="{SkinUtil.overColor}"
+                                     color.overAndSelected="0x8E8F90"
+                                     color.downStates="{SkinUtil.downColor}"
+                                     alpha="0.85"
+                                     alpha.overAndSelected="1"/>
+                </s:LinearGradient>
+            </s:fill>
+        </s:Rect>
 
-  <!-- layer 3: fill lowlight -->
-  <!--- @private -->
-  <s:Rect id="lowlight" left="1" right="1" top="1" bottom="1" radiusX="2" alpha="0">
-    <s:fill>
-      <s:LinearGradient rotation="270">
-        <s:GradientEntry color="0x000000" ratio="0.0" alpha="0.0627" />
-        <s:GradientEntry color="0x000000" ratio="0.48" alpha="0.0099" />
-        <s:GradientEntry color="0x000000" ratio="0.48001" alpha="0" />
-      </s:LinearGradient>
-    </s:fill>
-  </s:Rect>
+        <!-- layer 7: border - put on top of the fill so it doesn't disappear when scale is less than 1 -->
+        <!--- @private -->
+        <s:Rect id="border" left="0" right="1" top="1" bottom="1" topRightRadiusX="2" bottomRightRadiusX="2">
+            <s:stroke>
+                <s:LinearGradientStroke rotation="90" weight="1">
+                    <s:GradientEntry color="0xFFFFFF"
+                                     alpha="0.5625"
+                                     alpha.down="0.6375"/>
+                    <s:GradientEntry color="0x000000"
+                                     alpha="0.75"
+                                     alpha.down="0.85"/>
+                </s:LinearGradientStroke>
+            </s:stroke>
+        </s:Rect>
+    </s:Group>
 
-  <!-- layer 4: fill highlight -->
-  <!--- @private -->
-  <s:Rect id="highlight" left="1" right="1" top="1" bottom="1" radiusX="2" alpha="0">
-    <s:fill>
-      <s:LinearGradient rotation="90">
-        <s:GradientEntry color="0xFFFFFF"
-                         ratio="0.0"
-                         alpha="0.33"
-                         alpha.selectedUpStates="0.22"
-                         alpha.overStates="0.22"
-                         alpha.downStates="0.12"/>
-        <s:GradientEntry color="0xFFFFFF"
-                         ratio="0.48"
-                         alpha="0.33"
-                         alpha.selectedUpStates="0.22"
-                         alpha.overStates="0.22"
-                         alpha.downStates="0.12"/>
-        <s:GradientEntry color="0xFFFFFF"
-                         ratio="0.48001"
-                         alpha="0" />
-      </s:LinearGradient>
-    </s:fill>
-  </s:Rect>
+    <!-- layer 8: text -->
+    <!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
+    <s:Label id="labelDisplay"
+             color="white"
+             textAlign="center"
+             verticalAlign="middle"
+             maxDisplayedLines="1"
+             horizontalCenter="0" verticalCenter="1"
+             left="10" right="10" top="2" bottom="2">
+    </s:Label>
 
-  <!-- layer 5: highlight stroke (all states except down) -->
-  <!--- @private -->
-  <s:Rect id="highlightStroke" left="1" right="1" top="1" bottom="1" radiusX="2" excludeFrom="downStates" alpha="0">
-    <s:stroke>
-      <s:LinearGradientStroke rotation="90" weight="1">
-        <s:GradientEntry color="0xFFFFFF" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-        <s:GradientEntry color="0xD8D8D8" alpha.overStates="0.22" alpha.selectedUpStates="0.33" />
-      </s:LinearGradientStroke>
-    </s:stroke>
-  </s:Rect>
+    <s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+        <s:Image source="{IconBell}" includeIn="up,over" alpha="0.3"/>
+    </s:HGroup>
 
-  <!-- layer 6: highlight stroke (down state only) -->
-  <!--- @private -->
-  <s:Rect id="hldownstroke1" left="1" right="1" top="1" bottom="1" radiusX="2" alpha="0"
-          includeIn="downStates, selectedUpStates, overAndSelected">
-    <s:stroke>
-      <s:LinearGradientStroke rotation="90" weight="1">
-        <s:GradientEntry color="0x000000" alpha="0.25" ratio="0.0" />
-        <s:GradientEntry color="0x000000" alpha="0.25" ratio="0.001" />
-        <s:GradientEntry color="0x000000" alpha="0.07" ratio="0.0011" />
-        <s:GradientEntry color="0x000000" alpha="0.07" ratio="0.965" />
-        <s:GradientEntry color="0x000000" alpha="0.00" ratio="0.9651" />
-      </s:LinearGradientStroke>
-    </s:stroke>
-  </s:Rect>
-  <!--- @private -->
-  <s:Rect id="hldownstroke2" left="2" right="2" top="2" bottom="2" radiusX="2" alpha="0"
-          includeIn="downStates, selectedUpStates, overAndSelected">
-    <s:stroke>
-      <s:LinearGradientStroke rotation="90" weight="1">
-        <s:GradientEntry color="0x000000" alpha="0.09" ratio="0.0" />
-        <s:GradientEntry color="0x000000" alpha="0.00" ratio="0.0001" />
-      </s:LinearGradientStroke>
-    </s:stroke>
-  </s:Rect>
-
-
-  <!-- layer 8: text -->
-  <!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
-  <s:Label id="labelDisplay"
-           textAlign="center"
-           verticalAlign="middle"
-           maxDisplayedLines="1"
-           horizontalCenter="0" verticalCenter="1"
-           left="10" right="10" top="2" bottom="2">
-  </s:Label>
-  <s:Image source="{IconBell}" includeIn="up,over" alpha="0.3"/>
-  <s:Image source="{IconBell}" includeIn="selectedStates"/>
+    <s:HGroup width="100%" height="100%" horizontalAlign="center" verticalAlign="middle">
+        <s:Image source="{IconBell}" includeIn="selectedStates"/>
+    </s:HGroup>
 
 </s:SparkButtonSkin>
