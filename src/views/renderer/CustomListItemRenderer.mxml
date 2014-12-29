@@ -1,9 +1,17 @@
 <?xml version="1.0"?>
-<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" verticalScrollPolicy="off"
-         horizontalScrollPolicy="off">
+<mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+         xmlns:s="library://ns.adobe.com/flex/spark" verticalScrollPolicy="off"
+         horizontalScrollPolicy="off" creationPolicy="all">
     <fx:Script><![CDATA[
         import mx.collections.ArrayCollection;
-        import mx.controls.List;
+
+        import spark.components.DataGroup;
+
+        import spark.components.List;
+        import spark.components.supportClasses.ListBase;
+
+        [Embed(source="/assets/minus.png")]
+        private var IconMinus:Class;
 
         private function get dataProvider():ArrayCollection {
             return List(owner).dataProvider as ArrayCollection;
@@ -15,13 +23,61 @@
                 dataProvider.removeItemAt(index);
             }
         }
+
+        private function onChange(event:Event):void {
+
+            var oldValue:String = trimTrailing0sFromString(valueLabel.text);
+
+            if (oldValue != inputTxt.text)
+            {
+                data.value = trimTrailing0sFromString(inputTxt.text);
+                valueLabel.text = trimTrailing0sFromString(inputTxt.text);
+
+
+                //dispatch the data update event
+                var list:ListBase = this.owner as ListBase;
+                list.dataProvider.itemUpdated(data, 'value', oldValue, inputTxt.text);
+            }
+            isEdit(false);
+        }
+
+        private function trimTrailing0sFromString(s:String) : String
+        {
+           return parseFloat ( s ).toString();
+        }
+
+        private function onEdit(event:Event):void {
+            if(!data) return;
+            inputTxt.text = trimTrailing0sFromString(data.value);
+            isEdit(true);
+            //set cursor postion to end
+            inputTxt.selectRange(0,inputTxt.text.length+1);
+            inputTxt.setFocus();
+        }
+
+        private function isEdit(value:Boolean):void {
+            labelDisplay.visible = !value;
+            inputTxt.visible = value;
+        }
+
+        private function keyEnterHandler(event:KeyboardEvent):void{
+            if(event.keyCode==Keyboard.ENTER){
+                onChange(event);
+            }
+        }
         ]]></fx:Script>
 
-    <mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingRight="5">
-        <mx:Label text="{dataProvider.getItemIndex(this.data)+1+')'}"/>
-        <mx:Label id="valueLabel" text="{data.value}" width="100%"/>
-        <mx:Button label="x" width="20" height="100%" textAlign="center" paddingLeft="5" paddingRight="5"  toolTip="Delete" skin="mx.skins.ProgrammaticSkin"
-                   click="deleteItemHandler(event)"></mx:Button>
-    </mx:HBox>
+    <mx:Canvas>
+        <mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingRight="5" id="labelDisplay"
+                 click="onEdit(event)">
+            <mx:Label id="valueLabel" text="{trimTrailing0sFromString(data.value)}" width="100%"/>
+            <mx:Image source="{IconMinus}"
+                      width="16" height="100%" toolTip="{resourceManager.getString('resources', 'DELETE')}"
+                      click="deleteItemHandler(event)"/>
+        </mx:HBox>
+        <s:TextInput id="inputTxt" restrict="0-9" mouseDownOutside="onChange(event)"
+                     visible="false" focusOut="onChange(event)" keyDown="keyEnterHandler(event)"  keyUp="keyEnterHandler(event)"
+                     top="1" bottom="1" left="1" right="0"/>
+    </mx:Canvas>
 
 </mx:HBox>

@@ -118,10 +118,11 @@ public class TrayManager extends Group {
 
     public var settingsShown:Boolean;
 
+    private var settingsWindow:SettingsWindow;
     private function showSettings(event:Event):void {
         if (settingsShown) return;
-        var w:SettingsWindow = new SettingsWindow()
-        w.open();
+        settingsWindow = new SettingsWindow()
+        settingsWindow.open();
         settingsShown = true;
         hide();
         setPomodoroStatistic(model.showPomodoroStatistic);
@@ -143,6 +144,9 @@ public class TrayManager extends Group {
     }
 
     private function exitApp(e:Event):void {
+        if(settingsWindow){
+            settingsWindow.close();
+        }
         stage.nativeWindow.close();
     }
 
