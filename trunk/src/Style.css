@@ -39,3 +39,8 @@
     backgroundAlpha: 0;
     backgroundColor: #000000;
 }
+
+s|List s|HScrollBar {
+    skinClass: ClassReference("views.skins.scroll.VScrollSkin");
+    overSkin: ClassReference("views.skins.scroll.VScrollSkin");
+}
