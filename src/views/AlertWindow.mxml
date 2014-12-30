@@ -3,7 +3,7 @@
   Created by Cookman on 29.11.2014.
 -->
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="50"
-               creationComplete="creationCompleted(event)" controlBarVisible="true" skinClass="views.skins.AlertWindowSkin">
+               creationComplete="creationCompleted(event)" controlBarVisible="false" backgroundColor="{SkinUtil.downColor}"  skinClass="views.skins.AlertWindowSkin">
     <fx:Script><![CDATA[
         import models.LocalStorage;
         import models.MindTimerModel;
@@ -13,6 +13,8 @@
         import mx.events.CloseEvent;
 
         import mx.managers.PopUpManager;
+
+        import views.skins.SkinUtil;
 
         import vo.TimeVO;
 
@@ -33,11 +35,11 @@
         }
 
         ]]></fx:Script>
-    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5" paddingRight="5">
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5" paddingRight="5" contentBackgroundAlpha="0">
+        <s:Label verticalAlign="middle" textAlign="center" color="white" text="{LocalStorage.getTodaysCount() +' '+ resourceManager.getString('resources', 'POMS')+'; '+MindTimerModel.getInstance().lastSelectedTime}"/>
         <s:HGroup>
-            <s:Button id="yesButton" label="{resourceManager.getString('resources', 'POMODORO_IT')}" click="clickHandler(event)"/>
-            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)"/>
+            <s:Button id="yesButton" label="{resourceManager.getString('resources', 'POMODORO_IT')}" click="clickHandler(event)" skinClass="views.skins.SettingsButtonSkin"/>
+            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)" skinClass="views.skins.SettingsButtonSkin"/>
         </s:HGroup>
-        <s:Label verticalAlign="middle" textAlign="center" text="{LocalStorage.getTodaysCount() + resourceManager.getString('resources', 'POMS')+'; '+MindTimerModel.getInstance().lastSelectedTime}"/>
     </s:VGroup>
 </s:TitleWindow>
