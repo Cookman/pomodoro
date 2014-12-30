@@ -2,8 +2,10 @@
 <!--
   Created by Cookman on 29.11.2014.
 -->
-<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="55"
-               creationComplete="creationCompleted(event)" controlBarVisible="true"
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+               height="55"
+               creationComplete="creationCompleted(event)" controlBarVisible="true" maxWidth="180"
+               backgroundColor="{SkinUtil.downColor}"
                skinClass="views.skins.AlertWindowSkin">
     <fx:Script><![CDATA[
         import models.LocalStorage;
@@ -11,12 +13,14 @@
 
         import mx.managers.PopUpManager;
 
+        import views.skins.SkinUtil;
+
         import vo.TimeVO;
 
         private var model:MindTimerModel = MindTimerModel.getInstance();
 
         private var count:int;
-        private var timeValue:int=5;
+        private var timeValue:int = 5;
 
         protected function creationCompleted(e:Event):void {
             PopUpManager.centerPopUp(this);
@@ -40,7 +44,7 @@
                     timeValue = recommends[index].value;
                 }
             }
-            recommendLabel.text = resourceManager.getString('resources', 'RECOMMENDED') + timeValue.toString() + resourceManager.getString('resources', 'MINUTES_REST');
+            recommendLabel.text = resourceManager.getString('resources', 'RECOMMENDED') + ' ' + timeValue.toString() + ' ' + resourceManager.getString('resources', 'MINUTES_REST');
         }
 
         protected function clickHandler(e:Event):void {
@@ -57,11 +61,14 @@
 
     <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5"
               paddingRight="5">
-        <s:Label id="recommendLabel"/>
+        <s:TextArea id="recommendLabel" lineBreak="toFit" width="150" height="20" editable="false" selectable="false" borderVisible="false"
+                    borderAlpha="0" contentBackgroundColor="{SkinUtil.downColor}" color="white" horizontalScrollPolicy="off" verticalScrollPolicy="off"/>
         <s:HGroup>
             <s:Button id="yesButton" label="{resourceManager.getString('resources', 'YES')}"
+                      skinClass="views.skins.SettingsButtonSkin"
                       click="clickHandler(event)"/>
-            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)"/>
+            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)"
+                      skinClass="views.skins.SettingsButtonSkin"/>
         </s:HGroup>
     </s:VGroup>
 </s:TitleWindow>
