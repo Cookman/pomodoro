@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <mx:HBox xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
-         xmlns:s="library://ns.adobe.com/flex/spark" verticalScrollPolicy="off"
-         horizontalScrollPolicy="off" creationPolicy="all">
+         xmlns:s="library://ns.adobe.com/flex/spark" verticalScrollPolicy="off" width="100%"
+         horizontalScrollPolicy="off" creationPolicy="all" creationComplete="completeHandler(event)">
     <fx:Script><![CDATA[
         import mx.collections.ArrayCollection;
-
-        import spark.components.DataGroup;
 
         import spark.components.List;
         import spark.components.supportClasses.ListBase;
 
         [Embed(source="/assets/minus.png")]
         private var IconMinus:Class;
+
+        protected function completeHandler(event):void {
+
+        }
 
         private function get dataProvider():ArrayCollection {
             return List(owner).dataProvider as ArrayCollection;
@@ -28,8 +30,7 @@
 
             var oldValue:String = trimTrailing0sFromString(valueLabel.text);
 
-            if (oldValue != inputTxt.text)
-            {
+            if (oldValue != inputTxt.text) {
                 data.value = trimTrailing0sFromString(inputTxt.text);
                 valueLabel.text = trimTrailing0sFromString(inputTxt.text);
 
@@ -41,17 +42,17 @@
             isEdit(false);
         }
 
-        private function trimTrailing0sFromString(s:String) : String
-        {
-           return parseFloat ( s ).toString();
+        private function trimTrailing0sFromString(s:String):String {
+            if(!s) return "0";
+            return parseFloat(s).toString();
         }
 
         private function onEdit(event:Event):void {
-            if(!data) return;
+            if (!data) return;
             inputTxt.text = trimTrailing0sFromString(data.value);
             isEdit(true);
             //set cursor postion to end
-            inputTxt.selectRange(0,inputTxt.text.length+1);
+            inputTxt.selectRange(0, inputTxt.text.length + 1);
             inputTxt.setFocus();
         }
 
@@ -60,23 +61,33 @@
             inputTxt.visible = value;
         }
 
-        private function keyEnterHandler(event:KeyboardEvent):void{
-            if(event.keyCode==Keyboard.ENTER){
+        private function keyEnterHandler(event:KeyboardEvent):void {
+            if (event.keyCode == Keyboard.ENTER) {
                 onChange(event);
             }
+            else if (event.keyCode == Keyboard.ESCAPE) {
+                isEdit(false);
+            }
         }
+
+
+
         ]]></fx:Script>
 
-    <mx:Canvas>
+    <mx:Canvas  width="100%">
         <mx:HBox width="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" paddingRight="5" id="labelDisplay"
+                 verticalAlign="middle"
                  click="onEdit(event)">
-            <mx:Label id="valueLabel" text="{trimTrailing0sFromString(data.value)}" width="100%"/>
-            <mx:Image source="{IconMinus}"
-                      width="16" height="100%" toolTip="{resourceManager.getString('resources', 'DELETE')}"
-                      click="deleteItemHandler(event)"/>
+            <mx:Label id="valueLabel" text="{trimTrailing0sFromString(data.value)}"  width="100%" textAlign="left"/>
+            <mx:HBox width="100%" horizontalAlign="right">
+                <mx:Image source="{IconMinus}"
+                          width="12" height="100%" toolTip="{resourceManager.getString('resources', 'DELETE')}"
+                          click="deleteItemHandler(event)"/>
+            </mx:HBox>
         </mx:HBox>
-        <s:TextInput id="inputTxt" restrict="0-9" mouseDownOutside="onChange(event)"
-                     visible="false" focusOut="onChange(event)" keyDown="keyEnterHandler(event)"  keyUp="keyEnterHandler(event)"
+        <s:TextInput id="inputTxt" restrict="0-9" mouseDownOutside="onChange(event)" width="100%"
+                     visible="false" focusOut="onChange(event)" keyDown="keyEnterHandler(event)"
+                     keyUp="keyEnterHandler(event)" maxChars="2"
                      top="1" bottom="1" left="1" right="0"/>
     </mx:Canvas>
 
