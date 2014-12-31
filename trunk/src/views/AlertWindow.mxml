@@ -2,23 +2,21 @@
 <!--
   Created by Cookman on 29.11.2014.
 -->
-<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="50"
-               creationComplete="creationCompleted(event)" controlBarVisible="false" backgroundColor="{SkinUtil.downColor}">
+<s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" maxWidth="180"
+               height="55"
+               creationComplete="creationCompleted(event)" controlBarVisible="false"
+               backgroundColor="{SkinUtil.downColor}" skinClass="views.skins.AlertWindowSkin">
     <fx:Script><![CDATA[
         import models.LocalStorage;
         import models.MindTimerModel;
 
-        import mx.controls.Alert;
         import mx.core.FlexGlobals;
-        import mx.events.CloseEvent;
-
         import mx.managers.PopUpManager;
 
         import views.skins.SkinUtil;
 
-        import vo.TimeVO;
+        private var model:MindTimerModel = MindTimerModel.getInstance();
 
-        private var model:MindTimerModel=MindTimerModel.getInstance();
         protected function creationCompleted(e:Event):void {
             PopUpManager.centerPopUp(this);
         }
@@ -33,13 +31,17 @@
                 PopUpManager.createPopUp(FlexGlobals.topLevelApplication as DisplayObject, RecommendWindow, true);
             }
         }
-
         ]]></fx:Script>
-    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5" paddingRight="5" contentBackgroundAlpha="0">
-        <s:Label verticalAlign="middle" textAlign="center" color="white" text="{LocalStorage.getTodaysCount() +' '+ resourceManager.getString('resources', 'POMS')+'; '+MindTimerModel.getInstance().lastSelectedTime}"/>
-        <s:HGroup>
-            <s:Button id="yesButton" label="{resourceManager.getString('resources', 'POMODORO_IT')}" click="clickHandler(event)" skinClass="views.skins.SettingsButtonSkin"/>
-            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)" skinClass="views.skins.SettingsButtonSkin"/>
+    <s:VGroup width="100%" height="100%" verticalAlign="middle" horizontalAlign="center" paddingLeft="5"
+              paddingRight="5" contentBackgroundAlpha="0">
+        <s:Label verticalAlign="middle" textAlign="left" color="white"
+                 text="{ resourceManager.getString('resources', 'TODAY') +' '+LocalStorage.getTodaysCount() +' '
+                 + resourceManager.getString('resources', 'POMS')+' '+resourceManager.getString('resources', 'COMPLETED')}"/>
+        <s:HGroup height="30%">
+            <s:Button id="yesButton" label="{resourceManager.getString('resources', 'POMODORO_IT')}"
+                      click="clickHandler(event)" skinClass="views.skins.SettingsButtonSkin"/>
+            <s:Button label="{resourceManager.getString('resources', 'NO')}" click="clickHandler(event)"
+                      skinClass="views.skins.SettingsButtonSkin"/>
         </s:HGroup>
     </s:VGroup>
 </s:TitleWindow>

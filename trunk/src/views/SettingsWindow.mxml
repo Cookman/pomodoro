@@ -4,7 +4,7 @@
 -->
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
           xmlns:mx="library://ns.adobe.com/flex/mx" resizable="false"
-          width="300" height="260" showStatusBar="false" isPopUp="true" alwaysInFront="true"
+          width="230" height="270" showStatusBar="false" isPopUp="true" alwaysInFront="true"
           title="{resourceManager.getString('resources', 'SETTINGS')}"
           maximizable="false" skinClass="views.skins.TitleWindowSkin"
           minimizable="false" systemChrome="none" titleIcon="{IconTools}"
@@ -165,8 +165,8 @@
         }
 
         private function list_labelFunc(item:Object):String {
-            var index:String=(timeRecommendList.dataProvider.getItemIndex(item)+1).toString()+") ";
-            return index+item.vaue;
+            var index:String = (timeRecommendList.dataProvider.getItemIndex(item) + 1).toString() + ") ";
+            return index + item.vaue;
         }
         ]]></fx:Script>
 
@@ -183,15 +183,18 @@
                          label="{resourceManager.getString('resources', 'MAIN')}"
                          paddingLeft="10" paddingTop="5">
 
+
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'POMODORO_TITLE')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'POMODORO_TITLE')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
 
                     <s:CheckBox id="countPoms" color="white" skinClass="views.skins.CheckBoxSkin"
                                 label="{resourceManager.getString('resources', 'COUNT_POMS')}"></s:CheckBox>
-                    <mx:HBox width="100%" verticalAlign="middle">
-                        <s:CheckBox id="usePomLength" height="100%" color="white" skinClass="views.skins.CheckBoxSkin"
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:CheckBox id="usePomLength" height="100%" width="100%" color="white"
+                                    skinClass="views.skins.CheckBoxSkin"
                                     label="{resourceManager.getString('resources', 'USE_POM_LENGTH')}"></s:CheckBox>
                         <s:TextInput id="pomodoroLength" height="100%" enabled="{usePomLength.selected}" text="25"
                                      focusAlpha="0"
@@ -202,13 +205,16 @@
                                 label="{resourceManager.getString('resources', 'RESET_DAY')}"
                                 skinClass="views.skins.CheckBoxSkin"/>
 
+                    <s:Spacer height="5"/>
+
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATES')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATES')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
 
                     <s:VGroup horizontalAlign="justify">
-                        <s:HGroup width="100%" >
+                        <s:HGroup width="100%" gap="15">
                             <s:HGroup verticalAlign="middle" width="100%">
                                 <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 1"
                                          color="white" width="100%"
@@ -224,7 +230,7 @@
                                              contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
                             </s:HGroup>
                         </s:HGroup>
-                        <s:HGroup width="100%">
+                        <s:HGroup width="100%" gap="15">
                             <s:HGroup verticalAlign="middle" width="100%">
                                 <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 3"
                                          color="white" width="100%"
@@ -247,7 +253,8 @@
                          label="{resourceManager.getString('resources', 'RECOMMEND')}"
                          verticalScrollPolicy="off">
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'RECOMMEND_SETTINGS')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'RECOMMEND_SETTINGS')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
                     <mx:VBox width="100%">
@@ -257,12 +264,16 @@
                                     label="{resourceManager.getString('resources', 'CYCLE_RECOMMENDS')}"/>
                     </mx:VBox>
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'EDITOR')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'EDITOR')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
-                    <mx:HBox width="100%" paddingRight="10">
-                        <s:Image source="{IconPlus}" id="addButton" width="35"
-                                 click="addTime(event)"/>
+                    <mx:VBox width="100%" paddingRight="10">
+                        <mx:HBox width="100%" horizontalAlign="right">
+                            <mx:Label text="{resourceManager.getString('resources', 'RECOMMEND_LIST')}" width="100%"/>
+                            <s:Image source="{IconPlus}" id="addButton" width="16"
+                                     click="addTime(event)" toolTip="{resourceManager.getString('resources', 'ADD')}"/>
+                        </mx:HBox>
                         <s:List id="timeRecommendList" width="100%" height="65"
                                 itemRenderer="views.renderer.CustomListItemRenderer"
                                 horizontalScrollPolicy="off"
@@ -274,37 +285,39 @@
                                 styleName="list" contentBackgroundColor="{SkinUtil.gradient1}"
                                 >
                         </s:List>
-                    </mx:HBox>
+                    </mx:VBox>
                 </mx:VBox>
 
                 <mx:VBox width="100%" height="100%" paddingLeft="10" color="white" paddingTop="5"
                          label="{resourceManager.getString('resources', 'OTHER')}"
                          verticalScrollPolicy="off">
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'MISC')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'MISC')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
-                    <mx:HBox width="100%" verticalAlign="middle">
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
                         <s:Label text="{resourceManager.getString('resources', 'LANGUAGE')}:" verticalAlign="middle"
                                  color="white"/>
-                        <mx:ComboBox id="languageBox" labelField="label" width="150" height="100%"
+                        <mx:ComboBox id="languageBox" labelField="label" width="100%" height="100%"
                                      skin="views.skins.ComboBoxSkin"
                                      color="black" textSelectedColor="black" textRollOverColor="black"
                                      textInputStyleName="dropdown"
                                      dataProvider="{new ArrayCollection([{label:'English',value:MindTimerModel.EN_US},{label:'Русский',value:MindTimerModel.RU_RU}])}"
                                      change="languageChangeHandler(event)"/>
                     </mx:HBox>
-                    <mx:VBox width="100%">
+                    <mx:VBox width="100%" paddingRight="10" horizontalGap="5">
                         <s:CheckBox label="{resourceManager.getString('resources', 'USE_MP3')}" id="useMp3CheckBox"
                                     skinClass="views.skins.CheckBoxSkin"/>
-                        <s:Button id="fileBrowseButton" click="fileClickHandler(event)" maxWidth="250"
+                        <s:Button id="fileBrowseButton" click="fileClickHandler(event)" width="100%"
                                   skinClass="views.skins.AdvancedButtonSkin"
                                   label="{resourceManager.getString('resources', 'SELECT_FILE')}"
                                   enabled="{useMp3CheckBox.selected}"/>
                     </mx:VBox>
-
+                    <s:Spacer height="5"/>
                     <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
-                        <s:Label text="{resourceManager.getString('resources', 'ABOUT')}" color="0x696969" fontWeight="bold"/>
+                        <s:Label text="{resourceManager.getString('resources', 'ABOUT')}" color="0x696969"
+                                 fontWeight="bold"/>
                         <mx:HRule width="90%" strokeColor="0x696969"/>
                     </mx:HBox>
                     <mx:VBox width="100%" height="100%">

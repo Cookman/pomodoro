@@ -44,3 +44,14 @@ s|List s|HScrollBar {
     skinClass: ClassReference("views.skins.scroll.VScrollSkin");
     overSkin: ClassReference("views.skins.scroll.VScrollSkin");
 }
+
+mx|ToolTip {
+    backgroundAlpha: 1.0;
+    backgroundColor: #6c6b6b;
+    borderThickness: 1;
+    borderColor: #262626;
+    borderStyle: solid;
+    color: white;
+    cornerRadius: 5;
+    fontSize: 10;
+}
