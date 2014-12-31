@@ -80,7 +80,7 @@
                  click="onEdit(event)">
             <mx:Label id="valueLabel" text="{trimTrailing0sFromString(data.value)}"  width="100%" textAlign="left"/>
             <mx:HBox width="100%" horizontalAlign="right">
-                <mx:Image source="{IconMinus}"
+                <mx:Image source="{IconMinus}" rollOver="isEdit(false)"
                           width="12" height="100%" toolTip="{resourceManager.getString('resources', 'DELETE')}"
                           click="deleteItemHandler(event)"/>
             </mx:HBox>
