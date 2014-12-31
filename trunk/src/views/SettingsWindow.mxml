@@ -4,7 +4,7 @@
 -->
 <s:Window xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
           xmlns:mx="library://ns.adobe.com/flex/mx" resizable="false"
-          width="295" height="240" showStatusBar="false" isPopUp="true" alwaysInFront="true"
+          width="300" height="260" showStatusBar="false" isPopUp="true" alwaysInFront="true"
           title="{resourceManager.getString('resources', 'SETTINGS')}"
           maximizable="false" skinClass="views.skins.TitleWindowSkin"
           minimizable="false" systemChrome="none" titleIcon="{IconTools}"
@@ -16,11 +16,6 @@
         import models.SoundModel;
 
         import mx.collections.ArrayCollection;
-        import mx.events.CollectionEvent;
-        import mx.events.ListEvent;
-        import mx.events.PropertyChangeEvent;
-
-        import views.renderer.CustomListItemRenderer;
 
         import views.skins.SkinUtil;
         import views.skins.scroll.VScrollSkin;
@@ -39,7 +34,6 @@
 
         protected function creationCompleteHandler(event:Event):void {
             timeRecommendList.scroller.verticalScrollBar.setStyle("skinClass", VScrollSkin);
-
             settings = model.settings;
             if (settings) {
                 usePomLength.selected = settings.useFixedPomodoroLength;
@@ -169,6 +163,11 @@
         private function closeHandler(event:Event):void {
             model.trayIt.settingsShown = false;
         }
+
+        private function list_labelFunc(item:Object):String {
+            var index:String=(timeRecommendList.dataProvider.getItemIndex(item)+1).toString()+") ";
+            return index+item.vaue;
+        }
         ]]></fx:Script>
 
     <s:VGroup width="100%" height="100%" gap="0">
@@ -181,8 +180,14 @@
                           borderStyle="none" backgroundColor="{SkinUtil.downColor}"
                           width="100%" height="100%">
                 <mx:VBox width="100%" height="100%" color="white"
-                         label="{resourceManager.getString('resources', 'POMODORO_TITLE')}"
+                         label="{resourceManager.getString('resources', 'MAIN')}"
                          paddingLeft="10" paddingTop="5">
+
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'POMODORO_TITLE')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
+
                     <s:CheckBox id="countPoms" color="white" skinClass="views.skins.CheckBoxSkin"
                                 label="{resourceManager.getString('resources', 'COUNT_POMS')}"></s:CheckBox>
                     <mx:HBox width="100%" verticalAlign="middle">
@@ -196,34 +201,44 @@
                     <s:CheckBox id="resetCheckBox" color="white"
                                 label="{resourceManager.getString('resources', 'RESET_DAY')}"
                                 skinClass="views.skins.CheckBoxSkin"/>
-                </mx:VBox>
 
-                <mx:VBox width="100%" height="100%" paddingLeft="10" color="white" paddingTop="5"
-                         label="{resourceManager.getString('resources', 'TIME_TEMPLATES')}">
-                    <s:VGroup>
-                        <s:HGroup verticalAlign="middle">
-                            <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 1" color="white"
-                                     paddingTop="2"/>
-                            <s:TextInput id="template1" width="25" restrict="0-9" color="white"
-                                         contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATES')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
+
+                    <s:VGroup horizontalAlign="justify">
+                        <s:HGroup width="100%" >
+                            <s:HGroup verticalAlign="middle" width="100%">
+                                <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 1"
+                                         color="white" width="100%"
+                                         paddingTop="2"/>
+                                <s:TextInput id="template1" width="25" restrict="0-9" color="white"
+                                             contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                            </s:HGroup>
+                            <s:HGroup verticalAlign="middle" width="100%">
+                                <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 2"
+                                         color="white" width="100%"
+                                         paddingTop="2"/>
+                                <s:TextInput id="template2" width="25" restrict="0-9" color="white"
+                                             contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                            </s:HGroup>
                         </s:HGroup>
-                        <s:HGroup verticalAlign="middle">
-                            <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 2" color="white"
-                                     paddingTop="2"/>
-                            <s:TextInput id="template2" width="25" restrict="0-9" color="white"
-                                         contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
-                        </s:HGroup>
-                        <s:HGroup verticalAlign="middle">
-                            <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 3" color="white"
-                                     paddingTop="2"/>
-                            <s:TextInput id="template3" width="25" restrict="0-9" color="white"
-                                         contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
-                        </s:HGroup>
-                        <s:HGroup verticalAlign="middle">
-                            <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 4" color="white"
-                                     paddingTop="2"/>
-                            <s:TextInput id="template4" width="25" restrict="0-9" color="white"
-                                         contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                        <s:HGroup width="100%">
+                            <s:HGroup verticalAlign="middle" width="100%">
+                                <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 3"
+                                         color="white" width="100%"
+                                         paddingTop="2"/>
+                                <s:TextInput id="template3" width="25" restrict="0-9" color="white"
+                                             contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                            </s:HGroup>
+                            <s:HGroup verticalAlign="middle" width="100%">
+                                <s:Label text="{resourceManager.getString('resources', 'TIME_TEMPLATE')} 4"
+                                         color="white" width="100%"
+                                         paddingTop="2"/>
+                                <s:TextInput id="template4" width="25" restrict="0-9" color="white"
+                                             contentBackgroundColor="{SkinUtil.gradient1}" focusAlpha="0"/>
+                            </s:HGroup>
                         </s:HGroup>
                     </s:VGroup>
                 </mx:VBox>
@@ -231,18 +246,27 @@
                 <mx:VBox width="100%" height="100%" paddingLeft="10" color="white" paddingTop="5"
                          label="{resourceManager.getString('resources', 'RECOMMEND')}"
                          verticalScrollPolicy="off">
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'RECOMMEND_SETTINGS')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
                     <mx:VBox width="100%">
                         <s:CheckBox id="useRecommendsCheckBox" color="white" skinClass="views.skins.CheckBoxSkin"
                                     label="{resourceManager.getString('resources', 'USE_RECOMMENDS')}"/>
                         <s:CheckBox id="cycleRecommendsCheckBox" color="white" skinClass="views.skins.CheckBoxSkin"
                                     label="{resourceManager.getString('resources', 'CYCLE_RECOMMENDS')}"/>
                     </mx:VBox>
-                    <mx:HBox width="100%">
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'EDITOR')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
+                    <mx:HBox width="100%" paddingRight="10">
                         <s:Image source="{IconPlus}" id="addButton" width="35"
                                  click="addTime(event)"/>
-                        <s:List id="timeRecommendList" width="170" height="90"
+                        <s:List id="timeRecommendList" width="100%" height="65"
                                 itemRenderer="views.renderer.CustomListItemRenderer"
                                 horizontalScrollPolicy="off"
+                                labelFunction="list_labelFunc"
                                 focusAlpha="0"
                                 selectionColor="{SkinUtil.checkboxBackground}"
                                 color="white"
@@ -253,9 +277,13 @@
                     </mx:HBox>
                 </mx:VBox>
 
-                <mx:VBox width="100%" height="100" paddingLeft="10" color="white" paddingTop="5"
+                <mx:VBox width="100%" height="100%" paddingLeft="10" color="white" paddingTop="5"
                          label="{resourceManager.getString('resources', 'OTHER')}"
                          verticalScrollPolicy="off">
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'MISC')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
                     <mx:HBox width="100%" verticalAlign="middle">
                         <s:Label text="{resourceManager.getString('resources', 'LANGUAGE')}:" verticalAlign="middle"
                                  color="white"/>
@@ -274,7 +302,17 @@
                                   label="{resourceManager.getString('resources', 'SELECT_FILE')}"
                                   enabled="{useMp3CheckBox.selected}"/>
                     </mx:VBox>
+
+                    <mx:HBox width="100%" verticalAlign="middle" paddingRight="10">
+                        <s:Label text="{resourceManager.getString('resources', 'ABOUT')}" color="0x696969" fontWeight="bold"/>
+                        <mx:HRule width="90%" strokeColor="0x696969"/>
+                    </mx:HBox>
+                    <mx:VBox width="100%" height="100%">
+                        <s:Label text="{resourceManager.getString('resources', 'VERSION')}"/>
+                        <s:Label text="Email: k.a.kozubenko@gmail.com"/>
+                    </mx:VBox>
                 </mx:VBox>
+
             </mx:ViewStack>
         </mx:Box>
         <s:HGroup width="100%" height="30" verticalAlign="middle" horizontalAlign="right" paddingRight="10">

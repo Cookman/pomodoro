@@ -3,7 +3,7 @@
   Created by Cookman on 29.11.2014.
 -->
 <s:TitleWindow xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" height="50"
-               creationComplete="creationCompleted(event)" controlBarVisible="false" backgroundColor="{SkinUtil.downColor}"  skinClass="views.skins.AlertWindowSkin">
+               creationComplete="creationCompleted(event)" controlBarVisible="false" backgroundColor="{SkinUtil.downColor}">
     <fx:Script><![CDATA[
         import models.LocalStorage;
         import models.MindTimerModel;
