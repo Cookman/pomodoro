@@ -323,6 +323,8 @@
                     <mx:VBox width="100%" height="100%">
                         <s:Label text="{resourceManager.getString('resources', 'VERSION')}"/>
                         <s:Label  textAlign="left" backgroundAlpha="0" text="Project on sourceforge" buttonMode="true" useHandCursor="true" textDecoration="underline" click="{navigateToURL(new URLRequest('https://sourceforge.net/projects/pomodoroair/'))}"  />
+                        <s:Label  textAlign="left" backgroundAlpha="0" text="Project on GitHub" buttonMode="true" useHandCursor="true" textDecoration="underline" click="{navigateToURL(new URLRequest('https://github.com/Cookman/pomodoro/releases'))}"  />
+
                     </mx:VBox>
                 </mx:VBox>
 
